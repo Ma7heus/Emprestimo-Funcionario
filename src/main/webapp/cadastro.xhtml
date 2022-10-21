@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head >
+
+</h:head>
+
+<h:body>
+	<style>
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+
+	<div id="cabecalho">
+		<h:form id="formCadastroFuncionario">
+			<p:fieldset legend="Cadastro de Funcionarios">
+				<h:panelGrid columns="2">
+
+					<p:outputLabel value="Nome:" for="nome" />
+					<p:inputText size="150" id="nome" placeholder="Nome"
+						value="#{funcionarioBean.funcionario.nome}" required="true"
+						requiredMessage="É necessario informar o nome do funcionario"
+						validatorMessage="Nao pode ser superior a 60 caracteres">
+						<f:validateLength maximum="60" />
+						<p:messages for="nome" />
+					</p:inputText>
+
+
+
+					<p:outputLabel value="CPF:" for="cpf" />
+					<p:inputMask size="150" id="cpf" mask="999.999.999-99"
+						placeholder="CPF do funcionario"
+						value="#{funcionarioBean.funcionario.cpf}" required="true"
+						requiredMessage="É necessario informar o cpf"
+						validatorMessage="Codigo do produto deve conter 11 caracteres">
+						<f:validateLength maximum="14" minimum="11" />
+						<p:messages for="cpf" />
+					</p:inputMask>
+
+
+
+
+					<p:outputLabel value="Setor:" for="setor" />
+					<p:inputText id="setor" size="50"
+						placeholder="Setor do funcionario"
+						value="#{funcionarioBean.funcionario.setor}" required="true"
+						requiredMessage="É necessario informar o setor de trabalho"
+						validatorMessage="Deve conter menos que 50 caracteres">
+						<f:validateLength maximum="50" />
+						<p:messages for="setor" />
+					</p:inputText>
+
+					<p:outputLabel value="Cargo:" for="cargo" />
+					<p:inputText id="cargo" size="50"
+						placeholder="Cargo do funcionario"
+						value="#{funcionarioBean.funcionario.cargo}" required="true"
+						requiredMessage="É necessario informar o cargo de trabalho"
+						validatorMessage="Deve conter menos que 50 caracteres">
+						<f:validateLength maximum="50" />
+						<p:messages for="cargo" />
+					</p:inputText>
+
+
+					<p:outputLabel value="Data de Admissão:" for="dataAdmissao" />
+					<p:datePicker id="dataAdmissao" required="true" mask="99/99/9999"
+						requiredMessage="Data é origatoria"
+						value="#{funcionarioBean.funcionario.dataAdmissao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:messages for="dataAdmissao" />
+					</p:datePicker>
+
+
+					<p:outputLabel value="Observação:" for="observacao" />
+					<p:inputTextarea rows="3" cols="150" id="observacao" size="150"
+						placeholder="Adicione alguma obsevacao"
+						value="#{funcionarioBean.funcionario.observacao}"
+						validatorMessage="Deve conter menos que 200 caracteres">
+						<f:validateLength maximum="200" />
+						<p:messages for="observacao" />
+					</p:inputTextarea>
+
+				</h:panelGrid>
+
+				<br/>
+				<p:commandButton value="Salvar"  styleClass="ui-button-success"
+					icon="pi pi-check" action="#{funcionarioBean.cadastrar}"
+					process="@form" update="@form :formCadastroFuncionario">
+				</p:commandButton>
+
+				<p:commandButton value="Voltar"
+					action="#{funcionarioBean.tabelaFuncionarios}" process="@this">
+				</p:commandButton>
+
+			</p:fieldset>
+		</h:form>
+	</div>
+</h:body>
+
+
+
+</html>

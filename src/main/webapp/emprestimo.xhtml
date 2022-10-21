@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head />
+
+<h:body>
+	<style>
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+
+	<div id="cabecalho">
+		<h:form id="formCadastroEmprestimo">
+			<p:fieldset legend="Cadastro de Emprestimo">
+				<h:panelGrid columns="2">
+
+					<p:outputLabel value="Data de Operação:" for="dataOperacao" />
+					<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
+						requiredMessage="Data da Operação é origatoria"
+						value="#{emprestimoBean.emprestimo.dataOperacao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:messages for="dataOperacao" />
+					</p:datePicker>
+
+					<p:outputLabel value="Funcionario:" for="funcionario" />
+					<p:selectOneMenu id="funcionario">
+						<f:selectItems value="#{emprestimoBean.funcionarios}"
+							var="fancionario" itemLabel="#{fancionario.nome}"
+							itemValue="#{Funcionario.idFuncionario}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Emprestimo:" for="valorEmprestimo" />
+					<p:inputNumber size="20" id="valorEmprestimo"
+						placeholder="Valor Emprestimo"
+						value="#{funcionarioBean.funcionario.nome}" required="true"
+						symbol=" R$" symbolPosition="s" decimalSeparator=","
+						thousandSeparator="." mask="999.999"
+						requiredMessage="É necessario informar o valor do Emprestimo"
+						validatorMessage="Nao pode ser superior a 16 caracteres">
+						<f:validateLength maximum="8" />
+						<p:messages for="valorEmprestimo" />
+					</p:inputNumber>
+
+					<p:outputLabel value="Parcelas:" for="parcelas" />
+					<p:selectOneMenu id="parcelas">
+						<f:selectItems var="parcelas"></f:selectItems>
+
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
+					<p:datePicker id="primeiraParcela" required="true"
+						mask="99/99/9999"
+						requiredMessage="Data da primeira parcela é origatoria"
+						value="#{emprestimoBean.emprestimo.dataOperacao}">
+
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+						<p:messages for="dataOperacao" />
+					</p:datePicker>
+
+
+				</h:panelGrid>
+				<br />
+
+				<p:commandButton value="Gerar Parcelas"
+					styleClass="ui-button-success" icon="pi pi-refresh">
+
+				</p:commandButton>
+
+				<p:commandButton value="Voltar">
+				</p:commandButton>
+
+
+
+
+
+			</p:fieldset>
+		</h:form>
+	</div>
+</h:body>
+
+
+
+</html>
