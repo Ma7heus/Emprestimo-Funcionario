@@ -30,23 +30,34 @@ public class EmprestimoBean implements Serializable {
 	@Inject
 	FuncionarioService funcionarioService;
 	
+	@Inject
+	ParcelaValuesService parcelaValuesService;
 
 	
-	
+
 	public List<Funcionario> getFuncionarios(){
 		System.out.println("Buscando lista de funcionarios");
 		return funcionarioService.buscarTodos();
 	}
 	
 	public void gerarParcelas() {
-		System.out.println("Gerando parcelas!");
+		System.out.println("Gerando parcelas!");		
+		System.out.println(emprestimo.getTotalParcelas());
+		System.out.println(emprestimo.getDataPrimeiraParcela());
+		System.out.println(emprestimo.getDataOperacao());
+		System.out.println(this.funcionarioId);
 		
-
+		this.emprestimo = new Emprestimo();
+	}
+	
+	public List<ParcelasValues> getParcelasValues(){
+		System.out.println("Buscando lista valores para seleçao das parcelas");
+		return parcelaValuesService.buscarTodos();
 	}
 	
 	
 	public String formParcelas() {
-		return "parcelas?faces-reirect=true";
+		return "parcelas?faces-redirect=true";
 	}
 	
 

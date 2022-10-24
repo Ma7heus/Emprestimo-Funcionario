@@ -23,18 +23,10 @@ public class ParcelaBean implements Serializable{
 	@Inject
 	ParcelaService parcelaService;
 	
-	@Inject
-	ParcelaValuesService parcelaValuesService;
-
 	private Long IdParcela;
 	private List<Parcela> parcelas;
 	private Parcela parcela = new Parcela();
 	
-	
-	public List<ParcelasValues> getParcelasValues(){
-		System.out.println("Buscando lista valores para seleçao das parcelas");
-		return parcelaValuesService.buscarTodos();
-	}
 	
 	public List<Parcela> getParcelasPorperiodo() {
 		System.out.println("Buscando parcelas");

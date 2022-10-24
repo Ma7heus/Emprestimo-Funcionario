@@ -29,13 +29,14 @@ public class Emprestimo {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "IdFuncionario", foreignKey = @ForeignKey(name="fk_funcionario"))
 	private Funcionario funcionario;	
-
 	private BigDecimal valorEmprestimo;
 	private Long totalParcelas;
 	
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataOperacao = new Date();
+	@Temporal(TemporalType.DATE)
+	private Date dataPrimeiraParcela = new Date();
 	
 	public Emprestimo() {
 	}
@@ -82,6 +83,15 @@ public class Emprestimo {
 	public void setDataOperacaoa(Date dataOperacao) {
 		this.dataOperacao = dataOperacao;
 	}
+
+	public Date getDataPrimeiraParcela() {
+		return dataPrimeiraParcela;
+	}
+
+	public void setDataPrimeiraParcela(Date dataPrimeiraParcela) {
+		this.dataPrimeiraParcela = dataPrimeiraParcela;
+	}
+
 	
 	
 }

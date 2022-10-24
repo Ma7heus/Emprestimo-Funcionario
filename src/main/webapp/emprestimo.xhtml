@@ -31,18 +31,18 @@ button.ui-button {
 						</p:datePicker>
 
 						<p:outputLabel value="Funcionario:" for="funcionario" />
-						<p:selectOneMenu id="funcionario">
+						<p:selectOneMenu id="funcionario" value="#{emprestimoBean.funcionarioId}">
 							<f:selectItems value="#{emprestimoBean.funcionarios}"
 								var="funcionario" itemLabel="#{funcionario.nome}"
-								itemValue="#{Funcionario.idFuncionario}" />
+								itemValue="#{funcionario.idFuncionario}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Emprestimo:" for="valorEmprestimo" />
 						<p:inputNumber size="20" id="valorEmprestimo"
 							placeholder="Valor Emprestimo"
-							value="#{funcionarioBean.funcionario.nome}" required="true"
-							symbol=" R$" symbolPosition="s" decimalSeparator=","
-							thousandSeparator="." mask="999.999"
+							value="#{emprestimoBean.emprestimo.valorEmprestimo}"
+							required="true" symbol=" R$" symbolPosition="s"
+							decimalSeparator="," thousandSeparator="." mask="999.999"
 							requiredMessage="É necessario informar o valor do Emprestimo"
 							validatorMessage="Nao pode ser superior a 16 caracteres">
 							<f:validateLength maximum="8" />
@@ -50,9 +50,9 @@ button.ui-button {
 						</p:inputNumber>
 
 						<p:outputLabel value="Parcelas:" for="parcelas" />
-						<p:selectOneMenu id="parcelas">
+						<p:selectOneMenu id="parcelas" >
 							<f:selectItems var="parcelas"
-								value="#{parcelaBean.parcelasValues}"
+								value="#{emprestimoBean.parcelasValues}"
 								itemLabel="#{parcelas.quantidadeParcela}x"></f:selectItems>
 
 						</p:selectOneMenu>
@@ -60,26 +60,26 @@ button.ui-button {
 						<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
 						<p:datePicker id="primeiraParcela" required="true"
 							mask="99/99/9999"
-							requiredMessage="Data da primeira parcela é origatoria"
-							value="#{emprestimoBean.emprestimo.dataOperacao}">
+							requiredMessage="Data da primeira parcela é obrigatoria"
+							value="#{emprestimoBean.emprestimo.dataPrimeiraParcela}">
 
 							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
-
 					</h:panelGrid>
 					<br />
 
 					<p:commandButton value="Gerar Parcelas"
 						styleClass="ui-button-success" icon="pi pi-refresh"
-						action="#{emprestimoBean.gerarParcelas}" process="@form"
-						update="@form :formCadastroEmprestimo">
+						action="#{emprestimoBean.gerarParcelas}" process="@this"
+						update="@form: formCadastroEmprestimo: formListaParcelas">
 					</p:commandButton>
 
 					<p:commandButton value="Voltar"
-						action="#{emprestimoBean.formParcelas}" process="@this">
+						action="#{emprestimoBean.formParcelas}" process="@this"
+						update="@form: formCadastroEmprestimo: ">
 					</p:commandButton>
 
 
