@@ -9,8 +9,10 @@ import javax.inject.Named;
 
 import creditoAlfa.Service.EmprestimoService;
 import creditoAlfa.Service.FuncionarioService;
+import creditoAlfa.Service.ParcelaValuesService;
 import creditoAlfa.model.Emprestimo;
 import creditoAlfa.model.Funcionario;
+import creditoAlfa.model.ParcelasValues;
 
 @Named
 @ViewScoped
@@ -28,11 +30,15 @@ public class EmprestimoBean implements Serializable {
 	@Inject
 	FuncionarioService funcionarioService;
 	
+
+	
 	
 	public List<Funcionario> getFuncionarios(){
 		System.out.println("Buscando lista de funcionarios");
 		return funcionarioService.buscarTodos();
 	}
+	
+
 	
 	
 	

@@ -33,7 +33,7 @@ button.ui-button {
 					<p:outputLabel value="Funcionario:" for="funcionario" />
 					<p:selectOneMenu id="funcionario">
 						<f:selectItems value="#{emprestimoBean.funcionarios}"
-							var="fancionario" itemLabel="#{fancionario.nome}"
+							var="funcionario" itemLabel="#{funcionario.nome}"
 							itemValue="#{Funcionario.idFuncionario}" />
 					</p:selectOneMenu>
 
@@ -51,7 +51,9 @@ button.ui-button {
 
 					<p:outputLabel value="Parcelas:" for="parcelas" />
 					<p:selectOneMenu id="parcelas">
-						<f:selectItems var="parcelas"></f:selectItems>
+						<f:selectItems var="parcelas"
+							value="#{parcelaBean.parcelasValues}"
+							itemLabel="#{parcelas.quantidadeParcela}x"></f:selectItems>
 
 					</p:selectOneMenu>
 
@@ -71,8 +73,9 @@ button.ui-button {
 				<br />
 
 				<p:commandButton value="Gerar Parcelas"
-					styleClass="ui-button-success" icon="pi pi-refresh">
-
+					styleClass="ui-button-success" icon="pi pi-refresh"
+					action="#{parcelaBean.gerarParcelas}" process="@form"
+					update="@form :formCadastroEmprestimo">
 				</p:commandButton>
 
 				<p:commandButton value="Voltar">
@@ -84,6 +87,22 @@ button.ui-button {
 
 			</p:fieldset>
 		</h:form>
+
+		<h:form id="formListaParcelas">
+			<p:dataTable id="tabelaParcelas" value="#{parcelaBean.parcelas}" var="parcelas"
+				paginator="true" rows="5">
+
+				<p:column>
+					<f:facet name="header">Parcela</f:facet>
+					<p:outputLabel value="parcelas.numero" />
+				</p:column>
+
+			</p:dataTable>
+
+
+		</h:form>
+
+
 	</div>
 </h:body>
 

@@ -20,12 +20,7 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 
 	@Override
 	public void cadastrar(Funcionario entidade) {
-		try {
 			funcionarioDAO.cadastrar(entidade);
-		} catch (ConstraintViolationException execao) {
-			throw new RuntimeException("O CPF " + entidade.getCpf() + " ja existe!");
-		}
-		
 	}
 
 	@Override
@@ -35,8 +30,7 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 
 	@Override
 	public void atualizar(Funcionario entidade) {
-
-		// funcionarioDAO.atualizar(entidade);
+		funcionarioDAO.atualizar(entidade);
 	}
 
 	@Override
@@ -48,5 +42,20 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 	public Funcionario buscaById(Long idEntidade) {
 		return funcionarioDAO.buscaById(idEntidade);
 	}
+	
+	public boolean funcionarioAlreadyExist(Funcionario funcionario) { // verifica se funcionario existe no banco
+		List<Funcionario> listaFuncionarios=  funcionarioDAO.buscarTodos();
+		for (Funcionario funcionarioList : listaFuncionarios) {
+			if (funcionarioList.getCpf().equals(funcionario.getCpf())) {
+				System.out.println("funcionario a ser cadastrado " + funcionario.getCpf());
+				System.out.println("Funcionario ja cadastrado " + funcionarioList.getCpf());
+				System.out.println("O funcionario com Cpf " + funcionario.getCpf() 
+				+ " já existe!");
+				return true;
+			}
+		}		
+		return false;		
+	};
+	
 
 }

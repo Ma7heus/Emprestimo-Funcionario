@@ -15,12 +15,12 @@
 	<h:form id="formTabelaFuncionarios">
 		<p:fieldset >
 		<h1>Cadastro de Funcionários</h1>
-		<p:commandButton value="Novo" icon="pi pi-plus" action="#{funcionarioBean.formCadastrar}">		
+		<p:commandButton value="Novo" icon="pi pi-plus" action="#{formFuncionariosBean.formCadastrar}">		
 		
 		</p:commandButton>
 		
 			<p:dataTable id="tabelaFuncionarios"
-				value="#{funcionarioBean.funcionarios}" var="funcionario"
+				value="#{formFuncionariosBean.funcionarios}" var="funcionario"
 				paginator="true" rows="5">
 
 				<p:column sortBy="#{funcionario.idFuncionario}" >
@@ -28,7 +28,7 @@
 					<p:outputLabel value="#{funcionario.idFuncionario}" />
 				</p:column>
 				<p:column sortBy="#{funcionario.nome}">
-					<f:facet name="header">Nome</f:facet>
+					<f:facet  name="header">Nome</f:facet>
 					<p:outputLabel value="#{funcionario.nome}" />
 				</p:column>
 
@@ -56,7 +56,8 @@
 
 				<p:column>
 					<f:facet name="header">Alterar</f:facet>
-					<p:commandButton id="atualizaProduto" icon="pi pi-pencil" />
+					<p:commandButton id="atualizaProduto" icon="pi pi-pencil" 
+					action="#{formFuncionariosBean.atualizar(funcionario)}" process="@this"/>
 				</p:column>
 
 				<p:column>
@@ -69,7 +70,7 @@
 						width="300" message="Remover Funcionario?" header="Confirm"
 						severity="warn">
 						<p:commandButton value="Yes" icon="pi pi-check"
-						action="FuncionarioBean."
+						action="#{formFuncionariosBean.deletar(funcionario)}" process="@this"	update="@form :formTabelaFuncionarios"
 							onclick="PF('deleteFuncDialog').hide()" />
 						<p:commandButton value="No" type="button"
 							styleClass="ui-button-secondary" icon="pi pi-times"

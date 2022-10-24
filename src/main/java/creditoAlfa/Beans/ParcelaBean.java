@@ -3,12 +3,16 @@ package creditoAlfa.Beans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import creditoAlfa.Service.ParcelaService;
+import creditoAlfa.Service.ParcelaValuesService;
+import creditoAlfa.model.Funcionario;
 import creditoAlfa.model.Parcela;
+import creditoAlfa.model.ParcelasValues;
 
 @Named
 @ViewScoped
@@ -19,24 +23,32 @@ public class ParcelaBean implements Serializable{
 	@Inject
 	ParcelaService parcelaService;
 	
+	@Inject
+	ParcelaValuesService parcelaValuesService;
+
 	private Long IdParcela;
 	private List<Parcela> parcelas;
 	private Parcela parcela = new Parcela();
 	
+	public void gerarParcelas() {
+		System.out.println("Gerando parcelas");
+		
+	}
+	
+	public List<ParcelasValues> getParcelasValues(){
+		System.out.println("Buscando lista valores para seleçao das parcelas");
+		return parcelaValuesService.buscarTodos();
+	}
+	
+	public List<Parcela> getParcelasPorperiodo() {
+		System.out.println("Buscando parcelas");
+		return null;		
+	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

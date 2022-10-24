@@ -20,12 +20,13 @@ button.ui-button {
 
 	<div id="cabecalho">
 		<h:form id="formCadastroFuncionario">
+		<p:messages/>
 			<p:fieldset legend="Cadastro de Funcionarios">
 				<h:panelGrid columns="2">
 
 					<p:outputLabel value="Nome:" for="nome" />
 					<p:inputText size="150" id="nome" placeholder="Nome"
-						value="#{funcionarioBean.funcionario.nome}" required="true"
+						value="#{cadastroFuncionarioBean.funcionario.nome}" required="true"
 						requiredMessage="É necessario informar o nome do funcionario"
 						validatorMessage="Nao pode ser superior a 60 caracteres">
 						<f:validateLength maximum="60" />
@@ -37,7 +38,7 @@ button.ui-button {
 					<p:outputLabel value="CPF:" for="cpf" />
 					<p:inputMask size="150" id="cpf" mask="999.999.999-99"
 						placeholder="CPF do funcionario"
-						value="#{funcionarioBean.funcionario.cpf}" required="true"
+						value="#{cadastroFuncionarioBean.funcionario.cpf}" required="true"
 						requiredMessage="É necessario informar o cpf"
 						validatorMessage="Codigo do produto deve conter 11 caracteres">
 						<f:validateLength maximum="14" minimum="11" />
@@ -50,7 +51,7 @@ button.ui-button {
 					<p:outputLabel value="Setor:" for="setor" />
 					<p:inputText id="setor" size="50"
 						placeholder="Setor do funcionario"
-						value="#{funcionarioBean.funcionario.setor}" required="true"
+						value="#{cadastroFuncionarioBean.funcionario.setor}" required="true"
 						requiredMessage="É necessario informar o setor de trabalho"
 						validatorMessage="Deve conter menos que 50 caracteres">
 						<f:validateLength maximum="50" />
@@ -60,18 +61,18 @@ button.ui-button {
 					<p:outputLabel value="Cargo:" for="cargo" />
 					<p:inputText id="cargo" size="50"
 						placeholder="Cargo do funcionario"
-						value="#{funcionarioBean.funcionario.cargo}" required="true"
+						value="#{cadastroFuncionarioBean.funcionario.cargo}" required="true"
 						requiredMessage="É necessario informar o cargo de trabalho"
 						validatorMessage="Deve conter menos que 50 caracteres">
-						<f:validateLength maximum="50" />
-						<p:messages for="cargo" />
+						<f:validateLength maximum="50"/>
+						<p:messages for="cargo"/>
 					</p:inputText>
 
 
 					<p:outputLabel value="Data de Admissão:" for="dataAdmissao" />
 					<p:datePicker id="dataAdmissao" required="true" mask="99/99/9999"
 						requiredMessage="Data é origatoria"
-						value="#{funcionarioBean.funcionario.dataAdmissao}">
+						value="#{cadastroFuncionarioBean.funcionario.dataAdmissao}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
 						<p:messages for="dataAdmissao" />
@@ -81,7 +82,7 @@ button.ui-button {
 					<p:outputLabel value="Observação:" for="observacao" />
 					<p:inputTextarea rows="3" cols="150" id="observacao" size="150"
 						placeholder="Adicione alguma obsevacao"
-						value="#{funcionarioBean.funcionario.observacao}"
+						value="#{cadastroFuncionarioBean.funcionario.observacao}"
 						validatorMessage="Deve conter menos que 200 caracteres">
 						<f:validateLength maximum="200" />
 						<p:messages for="observacao" />
@@ -91,12 +92,12 @@ button.ui-button {
 
 				<br/>
 				<p:commandButton value="Salvar"  styleClass="ui-button-success"
-					icon="pi pi-check" action="#{funcionarioBean.cadastrar}"
+					icon="pi pi-check" action="#{cadastroFuncionarioBean.cadastrar}"
 					process="@form" update="@form :formCadastroFuncionario">
 				</p:commandButton>
 
 				<p:commandButton value="Voltar"
-					action="#{funcionarioBean.tabelaFuncionarios}" process="@this">
+					action="#{cadastroFuncionarioBean.tabelaFuncionarios}" process="@this">
 				</p:commandButton>
 
 			</p:fieldset>
