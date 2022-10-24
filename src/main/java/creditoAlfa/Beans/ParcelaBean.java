@@ -30,10 +30,6 @@ public class ParcelaBean implements Serializable{
 	private List<Parcela> parcelas;
 	private Parcela parcela = new Parcela();
 	
-	public void gerarParcelas() {
-		System.out.println("Gerando parcelas");
-		
-	}
 	
 	public List<ParcelasValues> getParcelasValues(){
 		System.out.println("Buscando lista valores para seleçao das parcelas");

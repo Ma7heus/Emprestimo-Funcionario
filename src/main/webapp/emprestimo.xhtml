@@ -7,104 +7,106 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head />
+<ui:composition template="_template.xhtml">
 
-<h:body>
-	<style>
+	<ui:define name="titulo">
+		<style>
 button.ui-button {
 	margin-right: .5rem;
 }
 </style>
 
-	<div id="cabecalho">
-		<h:form id="formCadastroEmprestimo">
-			<p:fieldset legend="Cadastro de Emprestimo">
-				<h:panelGrid columns="2">
+		<div id="cabecalho">
+			<h:form id="formCadastroEmprestimo">
+				<p:fieldset legend="Cadastro de Emprestimo">
+					<h:panelGrid columns="2">
 
-					<p:outputLabel value="Data de Operação:" for="dataOperacao" />
-					<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
-						requiredMessage="Data da Operação é origatoria"
-						value="#{emprestimoBean.emprestimo.dataOperacao}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:messages for="dataOperacao" />
-					</p:datePicker>
+						<p:outputLabel value="Data de Operação:" for="dataOperacao" />
+						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
+							requiredMessage="Data da Operação é obrigatoria"
+							value="#{emprestimoBean.emprestimo.dataOperacao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:messages for="dataOperacao" />
+						</p:datePicker>
 
-					<p:outputLabel value="Funcionario:" for="funcionario" />
-					<p:selectOneMenu id="funcionario">
-						<f:selectItems value="#{emprestimoBean.funcionarios}"
-							var="funcionario" itemLabel="#{funcionario.nome}"
-							itemValue="#{Funcionario.idFuncionario}" />
-					</p:selectOneMenu>
+						<p:outputLabel value="Funcionario:" for="funcionario" />
+						<p:selectOneMenu id="funcionario">
+							<f:selectItems value="#{emprestimoBean.funcionarios}"
+								var="funcionario" itemLabel="#{funcionario.nome}"
+								itemValue="#{Funcionario.idFuncionario}" />
+						</p:selectOneMenu>
 
-					<p:outputLabel value="Emprestimo:" for="valorEmprestimo" />
-					<p:inputNumber size="20" id="valorEmprestimo"
-						placeholder="Valor Emprestimo"
-						value="#{funcionarioBean.funcionario.nome}" required="true"
-						symbol=" R$" symbolPosition="s" decimalSeparator=","
-						thousandSeparator="." mask="999.999"
-						requiredMessage="É necessario informar o valor do Emprestimo"
-						validatorMessage="Nao pode ser superior a 16 caracteres">
-						<f:validateLength maximum="8" />
-						<p:messages for="valorEmprestimo" />
-					</p:inputNumber>
+						<p:outputLabel value="Emprestimo:" for="valorEmprestimo" />
+						<p:inputNumber size="20" id="valorEmprestimo"
+							placeholder="Valor Emprestimo"
+							value="#{funcionarioBean.funcionario.nome}" required="true"
+							symbol=" R$" symbolPosition="s" decimalSeparator=","
+							thousandSeparator="." mask="999.999"
+							requiredMessage="É necessario informar o valor do Emprestimo"
+							validatorMessage="Nao pode ser superior a 16 caracteres">
+							<f:validateLength maximum="8" />
+							<p:messages for="valorEmprestimo" />
+						</p:inputNumber>
 
-					<p:outputLabel value="Parcelas:" for="parcelas" />
-					<p:selectOneMenu id="parcelas">
-						<f:selectItems var="parcelas"
-							value="#{parcelaBean.parcelasValues}"
-							itemLabel="#{parcelas.quantidadeParcela}x"></f:selectItems>
+						<p:outputLabel value="Parcelas:" for="parcelas" />
+						<p:selectOneMenu id="parcelas">
+							<f:selectItems var="parcelas"
+								value="#{parcelaBean.parcelasValues}"
+								itemLabel="#{parcelas.quantidadeParcela}x"></f:selectItems>
 
-					</p:selectOneMenu>
+						</p:selectOneMenu>
 
-					<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
-					<p:datePicker id="primeiraParcela" required="true"
-						mask="99/99/9999"
-						requiredMessage="Data da primeira parcela é origatoria"
-						value="#{emprestimoBean.emprestimo.dataOperacao}">
+						<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
+						<p:datePicker id="primeiraParcela" required="true"
+							mask="99/99/9999"
+							requiredMessage="Data da primeira parcela é origatoria"
+							value="#{emprestimoBean.emprestimo.dataOperacao}">
 
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:messages for="dataOperacao" />
-					</p:datePicker>
-
-
-				</h:panelGrid>
-				<br />
-
-				<p:commandButton value="Gerar Parcelas"
-					styleClass="ui-button-success" icon="pi pi-refresh"
-					action="#{parcelaBean.gerarParcelas}" process="@form"
-					update="@form :formCadastroEmprestimo">
-				</p:commandButton>
-
-				<p:commandButton value="Voltar">
-				</p:commandButton>
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:messages for="dataOperacao" />
+						</p:datePicker>
 
 
+					</h:panelGrid>
+					<br />
+
+					<p:commandButton value="Gerar Parcelas"
+						styleClass="ui-button-success" icon="pi pi-refresh"
+						action="#{emprestimoBean.gerarParcelas}" process="@form"
+						update="@form :formCadastroEmprestimo">
+					</p:commandButton>
+
+					<p:commandButton value="Voltar"
+						action="#{emprestimoBean.formParcelas}" process="@this">
+					</p:commandButton>
 
 
 
-			</p:fieldset>
-		</h:form>
-
-		<h:form id="formListaParcelas">
-			<p:dataTable id="tabelaParcelas" value="#{parcelaBean.parcelas}" var="parcelas"
-				paginator="true" rows="5">
-
-				<p:column>
-					<f:facet name="header">Parcela</f:facet>
-					<p:outputLabel value="parcelas.numero" />
-				</p:column>
-
-			</p:dataTable>
 
 
-		</h:form>
+				</p:fieldset>
+			</h:form>
+
+			<h:form id="formListaParcelas">
+				<p:dataTable id="tabelaParcelas" value="#{parcelaBean.parcelas}"
+					var="parcelas" paginator="true" rows="5">
+
+					<p:column>
+						<f:facet name="header">Parcela</f:facet>
+						<p:outputLabel value="parcelas.numero" />
+					</p:column>
+
+				</p:dataTable>
 
 
-	</div>
-</h:body>
+			</h:form>
+
+
+		</div>
+	</ui:define>
+</ui:composition>
 
 
 

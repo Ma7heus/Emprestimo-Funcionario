@@ -38,6 +38,17 @@ public class EmprestimoBean implements Serializable {
 		return funcionarioService.buscarTodos();
 	}
 	
+	public void gerarParcelas() {
+		System.out.println("Gerando parcelas!");
+		
+
+	}
+	
+	
+	public String formParcelas() {
+		return "parcelas?faces-reirect=true";
+	}
+	
 
 	
 	

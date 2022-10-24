@@ -26,7 +26,7 @@ public class Parcela {
 	private Long idParcela;
 	
 	@Temporal(TemporalType.DATE)
-	private Date dataVencimento;
+	private Date dataVencimento = new Date();
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idEmprestimo", foreignKey = @ForeignKey(name="fk_emprestimo"))

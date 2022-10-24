@@ -7,95 +7,95 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head />
+<ui:composition template="_template.xhtml">
 
-<h:body>
+	<ui:define name="titulo">
+
+		<h:form id="formTabelaParcelas">
+			<p:fieldset>
+				<h1>Baixa de Parcelas de Empréstimo</h1>
+
+				<p:outputLabel value="Data vencimento:" for="" />
+				<p:datePicker id="dataInicial" required="true" mask="99/99/9999"
+					requiredMessage="Informe a data inicial">
+
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:messages for="dataOperacao" />
+				</p:datePicker>
+
+				<p:outputLabel value=" Até" for="" />
+				<p:datePicker id="dataFinal" required="true" mask="99/99/9999"
+					requiredMessage="Informe a data final">
+
+					<f:convertDateTime pattern="dd/MM/yyyy"
+						timeZone="America/Sao_Paulo" />
+					<p:messages for="dataOperacao" />
+				</p:datePicker>
 
 
-	<h:form id="formTabelaParcelas">
-		<p:fieldset>
-			<h1>Baixa de Parcelas de Empréstimo</h1>
-
-			<p:outputLabel value="Data vencimento:" for="" />
-			<p:datePicker id="dataInicial" required="true" mask="99/99/9999"
-				requiredMessage="Informe a data inicial"
-				>
-
-				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-				<p:messages for="dataOperacao" />
-			</p:datePicker>
-			
-			<p:outputLabel value=" Até" for="" />
-			<p:datePicker id="dataFinal" required="true" mask="99/99/9999"
-				requiredMessage="Informe a data final"
-				>
-
-				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" />
-				<p:messages for="dataOperacao" />
-			</p:datePicker>
-
-
-			<p:commandButton value="Pesquisar">
-			</p:commandButton>
-
+				<p:commandButton value="Pesquisar">
+				</p:commandButton>
 
 
 
-			<p:dataTable id="tabelaEmprestimos" var="parcela" paginator="true"
-				rows="5">
 
-				<p:column>
-					<f:facet name="header">ID</f:facet>
-					<p:outputLabel />
-				</p:column>
-				<p:column>
-					<f:facet name="header">Funcionario</f:facet>
-					<p:outputLabel />
-				</p:column>
+				<p:dataTable id="tabelaEmprestimos" var="parcela" paginator="true"
+					rows="5">
 
-				<p:column>
-					<f:facet name="header">Parcela</f:facet>
-					<p:outputLabel />
-				</p:column>
+					<p:column>
+						<f:facet name="header">ID</f:facet>
+						<p:outputLabel />
+					</p:column>
+					<p:column>
+						<f:facet name="header">Funcionario</f:facet>
+						<p:outputLabel />
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Vencimento</f:facet>
-					<p:outputLabel />
-				</p:column>
+					<p:column>
+						<f:facet name="header">Parcela</f:facet>
+						<p:outputLabel />
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Valor Parcela</f:facet>
-					<p:outputLabel />
-				</p:column>
+					<p:column>
+						<f:facet name="header">Vencimento</f:facet>
+						<p:outputLabel />
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Valor Pago</f:facet>
-					<p:outputLabel />
-				</p:column>
+					<p:column>
+						<f:facet name="header">Valor Parcela</f:facet>
+						<p:outputLabel />
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Opções</f:facet>
-					<p:commandButton id="baixarparcela"
-						class="ui-button-warning rounded-button" icon="pi pi-trash"
-						oncomplete="PF('baixarParcelaFuncDialog').show()" />
+					<p:column>
+						<f:facet name="header">Valor Pago</f:facet>
+						<p:outputLabel />
+					</p:column>
 
-					<p:confirmDialog widgetVar="baixarParcelaFuncDialog"
-						showEffect="fade" width="300" message="Baixar Parcela?"
-						header="Confirm" severity="warn">
-						<p:commandButton value="Yes" icon="pi pi-check"
-							action="parcelaBean."
-							onclick="PF('baixarParcelaFuncDialog').hide()" />
-						<p:commandButton value="No" type="button"
-							styleClass="ui-button-secondary" icon="pi pi-times"
-							onclick="PF('baixarParcelaFuncDialog').hide()" />
-					</p:confirmDialog>
+					<p:column>
+						<f:facet name="header">Opções</f:facet>
+						<p:commandButton id="baixarparcela"
+							class="ui-button-warning rounded-button" icon="pi pi-trash"
+							oncomplete="PF('baixarParcelaFuncDialog').show()" />
 
-				</p:column>
+						<p:confirmDialog widgetVar="baixarParcelaFuncDialog"
+							showEffect="fade" width="300" message="Baixar Parcela?"
+							header="Confirm" severity="warn">
+							<p:commandButton value="Yes" icon="pi pi-check"
+								action="parcelaBean."
+								onclick="PF('baixarParcelaFuncDialog').hide()" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('baixarParcelaFuncDialog').hide()" />
+						</p:confirmDialog>
 
-			</p:dataTable>
-		</p:fieldset>
-	</h:form>
-</h:body>
+					</p:column>
+
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
 
 
 

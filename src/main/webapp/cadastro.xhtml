@@ -7,104 +7,108 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head >
+<ui:composition template="_template.xhtml">
 
-</h:head>
+	<ui:define name="titulo">
 
-<h:body>
-	<style>
+
+		<style>
 button.ui-button {
 	margin-right: .5rem;
 }
 </style>
 
-	<div id="cabecalho">
-		<h:form id="formCadastroFuncionario">
-		<p:messages/>
-			<p:fieldset legend="Cadastro de Funcionarios">
-				<h:panelGrid columns="2">
+		<div id="cabecalho">
+			<h:form id="formCadastroFuncionario">
+				<p:messages />
+				<p:fieldset legend="Cadastro de Funcionarios">
+					<h:panelGrid columns="2">
 
-					<p:outputLabel value="Nome:" for="nome" />
-					<p:inputText size="150" id="nome" placeholder="Nome"
-						value="#{cadastroFuncionarioBean.funcionario.nome}" required="true"
-						requiredMessage="É necessario informar o nome do funcionario"
-						validatorMessage="Nao pode ser superior a 60 caracteres">
-						<f:validateLength maximum="60" />
-						<p:messages for="nome" />
-					</p:inputText>
-
-
-
-					<p:outputLabel value="CPF:" for="cpf" />
-					<p:inputMask size="150" id="cpf" mask="999.999.999-99"
-						placeholder="CPF do funcionario"
-						value="#{cadastroFuncionarioBean.funcionario.cpf}" required="true"
-						requiredMessage="É necessario informar o cpf"
-						validatorMessage="Codigo do produto deve conter 11 caracteres">
-						<f:validateLength maximum="14" minimum="11" />
-						<p:messages for="cpf" />
-					</p:inputMask>
+						<p:outputLabel value="Nome:" for="nome" />
+						<p:inputText size="150" id="nome" placeholder="Nome"
+							value="#{cadastroFuncionarioBean.funcionario.nome}"
+							required="true"
+							requiredMessage="É necessario informar o nome do funcionario"
+							validatorMessage="Nao pode ser superior a 60 caracteres">
+							<f:validateLength maximum="60" />
+							<p:messages for="nome" />
+						</p:inputText>
 
 
 
-
-					<p:outputLabel value="Setor:" for="setor" />
-					<p:inputText id="setor" size="50"
-						placeholder="Setor do funcionario"
-						value="#{cadastroFuncionarioBean.funcionario.setor}" required="true"
-						requiredMessage="É necessario informar o setor de trabalho"
-						validatorMessage="Deve conter menos que 50 caracteres">
-						<f:validateLength maximum="50" />
-						<p:messages for="setor" />
-					</p:inputText>
-
-					<p:outputLabel value="Cargo:" for="cargo" />
-					<p:inputText id="cargo" size="50"
-						placeholder="Cargo do funcionario"
-						value="#{cadastroFuncionarioBean.funcionario.cargo}" required="true"
-						requiredMessage="É necessario informar o cargo de trabalho"
-						validatorMessage="Deve conter menos que 50 caracteres">
-						<f:validateLength maximum="50"/>
-						<p:messages for="cargo"/>
-					</p:inputText>
+						<p:outputLabel value="CPF:" for="cpf" />
+						<p:inputMask size="150" id="cpf" mask="999.999.999-99"
+							placeholder="CPF do funcionario"
+							value="#{cadastroFuncionarioBean.funcionario.cpf}"
+							required="true" requiredMessage="É necessario informar o cpf"
+							validatorMessage="Codigo do produto deve conter 11 caracteres">
+							<f:validateLength maximum="14" minimum="11" />
+							<p:messages for="cpf" />
+						</p:inputMask>
 
 
-					<p:outputLabel value="Data de Admissão:" for="dataAdmissao" />
-					<p:datePicker id="dataAdmissao" required="true" mask="99/99/9999"
-						requiredMessage="Data é origatoria"
-						value="#{cadastroFuncionarioBean.funcionario.dataAdmissao}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-						<p:messages for="dataAdmissao" />
-					</p:datePicker>
 
 
-					<p:outputLabel value="Observação:" for="observacao" />
-					<p:inputTextarea rows="3" cols="150" id="observacao" size="150"
-						placeholder="Adicione alguma obsevacao"
-						value="#{cadastroFuncionarioBean.funcionario.observacao}"
-						validatorMessage="Deve conter menos que 200 caracteres">
-						<f:validateLength maximum="200" />
-						<p:messages for="observacao" />
-					</p:inputTextarea>
+						<p:outputLabel value="Setor:" for="setor" />
+						<p:inputText id="setor" size="50"
+							placeholder="Setor do funcionario"
+							value="#{cadastroFuncionarioBean.funcionario.setor}"
+							required="true"
+							requiredMessage="É necessario informar o setor de trabalho"
+							validatorMessage="Deve conter menos que 50 caracteres">
+							<f:validateLength maximum="50" />
+							<p:messages for="setor" />
+						</p:inputText>
 
-				</h:panelGrid>
+						<p:outputLabel value="Cargo:" for="cargo" />
+						<p:inputText id="cargo" size="50"
+							placeholder="Cargo do funcionario"
+							value="#{cadastroFuncionarioBean.funcionario.cargo}"
+							required="true"
+							requiredMessage="É necessario informar o cargo de trabalho"
+							validatorMessage="Deve conter menos que 50 caracteres">
+							<f:validateLength maximum="50" />
+							<p:messages for="cargo" />
+						</p:inputText>
 
-				<br/>
-				<p:commandButton value="Salvar"  styleClass="ui-button-success"
-					icon="pi pi-check" action="#{cadastroFuncionarioBean.cadastrar}"
-					process="@form" update="@form :formCadastroFuncionario">
-				</p:commandButton>
 
-				<p:commandButton value="Voltar"
-					action="#{cadastroFuncionarioBean.tabelaFuncionarios}" process="@this">
-				</p:commandButton>
+						<p:outputLabel value="Data de Admissão:" for="dataAdmissao" />
+						<p:datePicker id="dataAdmissao" required="true" mask="99/99/9999"
+							requiredMessage="Data é origatoria"
+							value="#{cadastroFuncionarioBean.funcionario.dataAdmissao}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+							<p:messages for="dataAdmissao" />
+						</p:datePicker>
 
-			</p:fieldset>
-		</h:form>
-	</div>
-</h:body>
 
+						<p:outputLabel value="Observação:" for="observacao" />
+						<p:inputTextarea rows="3" cols="150" id="observacao" size="150"
+							placeholder="Adicione alguma obsevacao"
+							value="#{cadastroFuncionarioBean.funcionario.observacao}"
+							validatorMessage="Deve conter menos que 200 caracteres">
+							<f:validateLength maximum="200" />
+							<p:messages for="observacao" />
+						</p:inputTextarea>
+
+					</h:panelGrid>
+
+					<br />
+					<p:commandButton value="Salvar" styleClass="ui-button-success"
+						icon="pi pi-check" action="#{cadastroFuncionarioBean.cadastrar}"
+						process="@form" update="@form :formCadastroFuncionario">
+					</p:commandButton>
+
+					<p:commandButton value="Voltar"
+						action="#{cadastroFuncionarioBean.tabelaFuncionarios}"
+						process="@this">
+					</p:commandButton>
+
+				</p:fieldset>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
 
 
 </html>

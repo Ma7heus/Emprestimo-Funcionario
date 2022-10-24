@@ -7,82 +7,85 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head />
+<ui:composition template="_template.xhtml">
 
-<h:body>
+	<ui:define name="titulo">
 
+		<h:form id="formTabelaFuncionarios">
+			<p:fieldset>
+				<h1>Cadastro de Funcionários</h1>
+				<p:commandButton value="Novo" icon="pi pi-plus"
+					action="#{formFuncionariosBean.formCadastrar}">
 
-	<h:form id="formTabelaFuncionarios">
-		<p:fieldset >
-		<h1>Cadastro de Funcionários</h1>
-		<p:commandButton value="Novo" icon="pi pi-plus" action="#{formFuncionariosBean.formCadastrar}">		
-		
-		</p:commandButton>
-		
-			<p:dataTable id="tabelaFuncionarios"
-				value="#{formFuncionariosBean.funcionarios}" var="funcionario"
-				paginator="true" rows="5">
+				</p:commandButton>
 
-				<p:column sortBy="#{funcionario.idFuncionario}" >
-					<f:facet name="header">ID</f:facet>
-					<p:outputLabel value="#{funcionario.idFuncionario}" />
-				</p:column>
-				<p:column sortBy="#{funcionario.nome}">
-					<f:facet  name="header">Nome</f:facet>
-					<p:outputLabel value="#{funcionario.nome}" />
-				</p:column>
+				<p:dataTable id="tabelaFuncionarios"
+					value="#{formFuncionariosBean.funcionarios}" var="funcionario"
+					paginator="true" rows="5">
 
-				<p:column sortBy="#{funcionario.cpf}">
-					<f:facet name="header">CPF</f:facet>
-					<p:outputLabel value="#{funcionario.cpf}" />
-				</p:column>
+					<p:column sortBy="#{funcionario.idFuncionario}">
+						<f:facet name="header">ID</f:facet>
+						<p:outputLabel value="#{funcionario.idFuncionario}" />
+					</p:column>
+					<p:column sortBy="#{funcionario.nome}">
+						<f:facet name="header">Nome</f:facet>
+						<p:outputLabel value="#{funcionario.nome}" />
+					</p:column>
 
-				<p:column sortBy="#{funcionario.setor}">
-					<f:facet name="header">Setor</f:facet>
-					<p:outputLabel value="#{funcionario.setor}" />
-				</p:column>
+					<p:column sortBy="#{funcionario.cpf}">
+						<f:facet name="header">CPF</f:facet>
+						<p:outputLabel value="#{funcionario.cpf}" />
+					</p:column>
 
-				<p:column sortBy="#{funcionario.cargo}">
-					<f:facet name="header">Cargo</f:facet>
-					<p:outputLabel value="#{funcionario.cargo}">
-					</p:outputLabel>
-				</p:column>
+					<p:column sortBy="#{funcionario.setor}">
+						<f:facet name="header">Setor</f:facet>
+						<p:outputLabel value="#{funcionario.setor}" />
+					</p:column>
 
-				<p:column sortBy="#{funcionario.dataAdmissao}">
-					<f:facet name="header">Data Admissão</f:facet>
-					<p:outputLabel value="#{funcionario.dataAdmissao}">
-					</p:outputLabel>
-				</p:column>
+					<p:column sortBy="#{funcionario.cargo}">
+						<f:facet name="header">Cargo</f:facet>
+						<p:outputLabel value="#{funcionario.cargo}">
+						</p:outputLabel>
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Alterar</f:facet>
-					<p:commandButton id="atualizaProduto" icon="pi pi-pencil" 
-					action="#{formFuncionariosBean.atualizar(funcionario)}" process="@this"/>
-				</p:column>
+					<p:column sortBy="#{funcionario.dataAdmissao}">
+						<f:facet name="header">Data Admissão</f:facet>
+						<p:outputLabel value="#{funcionario.dataAdmissao}">
+						</p:outputLabel>
+					</p:column>
 
-				<p:column>
-					<f:facet name="header">Remover</f:facet>
-					<p:commandButton id="removerProduto"
-						class="ui-button-warning rounded-button" icon="pi pi-trash"
-						oncomplete="PF('deleteFuncDialog').show()" />
+					<p:column>
+						<f:facet name="header">Alterar</f:facet>
+						<p:commandButton id="atualizaProduto" icon="pi pi-pencil"
+							action="#{formFuncionariosBean.atualizar(funcionario)}"
+							process="@this" />
+					</p:column>
 
-					<p:confirmDialog widgetVar="deleteFuncDialog" showEffect="fade"
-						width="300" message="Remover Funcionario?" header="Confirm"
-						severity="warn">
-						<p:commandButton value="Yes" icon="pi pi-check"
-						action="#{formFuncionariosBean.deletar(funcionario)}" process="@this"	update="@form :formTabelaFuncionarios"
-							onclick="PF('deleteFuncDialog').hide()" />
-						<p:commandButton value="No" type="button"
-							styleClass="ui-button-secondary" icon="pi pi-times"
-							onclick="PF('deleteFuncDialog').hide()" />
-					</p:confirmDialog>
+					<p:column>
+						<f:facet name="header">Remover</f:facet>
+						<p:commandButton id="removerProduto"
+							class="ui-button-warning rounded-button" icon="pi pi-trash"
+							oncomplete="PF('deleteFuncDialog').show()" />
 
-				</p:column>
+						<p:confirmDialog widgetVar="deleteFuncDialog" showEffect="fade"
+							width="300" message="Remover Funcionario?" header="Confirm"
+							severity="warn">
+							<p:commandButton value="Yes" icon="pi pi-check"
+								action="#{formFuncionariosBean.deletar(funcionario)}"
+								process="@this" update="@form :formTabelaFuncionarios"
+								onclick="PF('deleteFuncDialog').hide()" />
+							<p:commandButton value="No" type="button"
+								styleClass="ui-button-secondary" icon="pi pi-times"
+								onclick="PF('deleteFuncDialog').hide()" />
+						</p:confirmDialog>
 
-			</p:dataTable>
-		</p:fieldset>
-	</h:form>
-</h:body>
+					</p:column>
+
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
 
 
 
