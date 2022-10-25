@@ -1,8 +1,10 @@
 package creditoAlfa.Beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -17,56 +19,80 @@ import creditoAlfa.model.ParcelasValues;
 @Named
 @ViewScoped
 public class ParcelaBean implements Serializable{
-
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	ParcelaService parcelaService;
-	
+	ParcelaService parcelaService;	
 	private Long IdParcela;
-	private List<Parcela> parcelas;
+	private List<Parcela> parcelas = new ArrayList<>();
 	private Parcela parcela = new Parcela();
 	
 	
-	public List<Parcela> getParcelasPorperiodo() {
-		System.out.println("Buscando parcelas");
-		return null;		
+	@PostConstruct
+	public void init() {
+		buscaParcelasPorperiodo();
+		buscarTodasParcelas();
+	}
+	
+	public void buscarTodasParcelas() {
+		System.out.println("Buscando todas parcelas");
+		this.parcelas = parcelaService.buscarTodos();
 	}
 	
 	
-	
-	
+	public List<Parcela> buscaParcelasPorperiodo() {
+		System.out.println("Buscando parcelas");
+		return null;		
+	}
 
 	
 	
+	
+	
+	//--------------------------------------
 	
 	public ParcelaService getParcelaService() {
 		return parcelaService;
 	}
+
 	public void setParcelaService(ParcelaService parcelaService) {
 		this.parcelaService = parcelaService;
 	}
+
 	public Long getIdParcela() {
 		return IdParcela;
 	}
+
 	public void setIdParcela(Long idParcela) {
 		IdParcela = idParcela;
 	}
+
 	public List<Parcela> getParcelas() {
 		return parcelas;
 	}
+
 	public void setParcelas(List<Parcela> parcelas) {
 		this.parcelas = parcelas;
 	}
+
 	public Parcela getParcela() {
 		return parcela;
 	}
+
 	public void setParcela(Parcela parcela) {
 		this.parcela = parcela;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
+	
+	
+
+	
+	
 	
 	
 	

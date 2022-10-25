@@ -54,33 +54,6 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 		parcelaService.CalculaeCadatraParcelas(emprestimo);
 		cadastrar(emprestimo); // metodo dessa classe
 	}
-	
-//	private void geradorDeParcelas(Emprestimo entidade) {
-//		
-//		
-//		for (Long i = 1L; i<=emprestimo.getTotalParcelas() ; i++) {
-//			Parcela parcela =  new Parcela();		
-//			if (i == 1 ) {
-//				parcela.setDataVencimento(datavencimento);			
-//				parcela.setNumParcela(i);
-//				parcela.setValorPago(new BigDecimal(0.0));
-//				parcela.setValorParcela(valorParcela);
-//				parcela.setEmprestimo(emprestimo);
-//				parcelaDAO.cadastrar(parcela);	
-//			}else {
-//				datavencimento = calculaMeses.setMont(datavencimento);	
-//				parcela.setDataVencimento(emprestimo.getDataPrimeiraParcela());			
-//				parcela.setNumParcela(i);
-//				parcela.setValorPago(new BigDecimal(0.0));
-//				parcela.setValorParcela(valorParcela);
-//				parcela.setEmprestimo(emprestimo);
-//				
-//				parcelaDAO.cadastrar(parcela);	
-//			}
-//		}
-//		
-//		emprestimoDAO.cadastrar(entidade);
-//	}
 
 	@Override
 	public void deletar(Emprestimo entidade) {

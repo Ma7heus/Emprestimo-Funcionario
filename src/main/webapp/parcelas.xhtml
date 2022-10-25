@@ -40,42 +40,42 @@
 
 
 
-				<p:dataTable id="tabelaEmprestimos" var="parcela" paginator="true"
-					rows="5">
+				<p:dataTable id="tabelaEmprestimos" value="#{parcelaBean.parcelas}"
+					var="parcela" paginator="true" rows="7">
 
 					<p:column>
 						<f:facet name="header">ID</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.idParcela}"/>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Funcionario</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.emprestimo.funcionario.nome}"/>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Parcela</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.numParcela}"/>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Vencimento</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.dataVencimento}"/>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Valor Parcela</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.valorParcela}"/>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Valor Pago</f:facet>
-						<p:outputLabel />
+						<p:outputLabel value="#{parcela.valorPago}"/>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Opções</f:facet>
-						<p:commandButton id="baixarparcela"
-							class="ui-button-warning rounded-button" icon="pi pi-trash"
+						<p:commandButton id="baixarparcela" value="baixar"
+							class="ui-button-warning rounded-button"  icon="pi pi-arrow-down"
 							oncomplete="PF('baixarParcelaFuncDialog').show()" />
 
 						<p:confirmDialog widgetVar="baixarParcelaFuncDialog"

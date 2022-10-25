@@ -39,11 +39,17 @@ public class Parcela {
 	public Parcela() {
 	}
 	
-	public Parcela(Date dataVencimento, BigDecimal valorParcela, BigDecimal valorPago) {
+	
+	
+	public Parcela(Date dataVencimento, Emprestimo emprestimo, Long numParcela, BigDecimal valorParcela,
+			BigDecimal valorPago) {
 		this.dataVencimento = dataVencimento;
+		this.emprestimo = emprestimo;
+		this.numParcela = numParcela;
 		this.valorParcela = valorParcela;
 		this.valorPago = valorPago;
 	}
+
 	
 	public Long getIdParcela() {
 		return idParcela;

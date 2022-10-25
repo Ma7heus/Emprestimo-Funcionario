@@ -42,8 +42,7 @@ public class ParcelaValuesService extends GenericService<ParcelasValues, Long> i
 
 	@Override
 	public ParcelasValues buscaById(Long idEntidade) {
-		// TODO Auto-generated method stub
-		return null;
+		return parcelaValuesDAO.buscaById(idEntidade);
 	}
 
 }

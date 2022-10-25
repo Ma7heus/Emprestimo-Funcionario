@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -115,10 +117,10 @@ public class EmprestimoBean implements Serializable {
 		System.out.println(this.idParcelaValue);
 		System.out.println(this.emprestimo.getDataOperacao());
 		System.out.println(this.emprestimo.getDataPrimeiraParcela());
-		System.out.println(this.emprestimo.getValorEmprestimo());
-		
-		//emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue);
-		
+		System.out.println(this.emprestimo.getValorEmprestimo());		
+		emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Emprestimo realizado com sucesso!"));	
+		System.out.println("Emprestimo realizado!");
 		this.emprestimo = new Emprestimo();
 	}
 }

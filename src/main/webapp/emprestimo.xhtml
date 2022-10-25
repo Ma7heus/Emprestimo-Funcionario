@@ -18,6 +18,7 @@ button.ui-button {
 
 		<div id="cabecalho">
 			<h:form id="formCadastroEmprestimo">
+				<p:messages />
 				<p:fieldset legend="Cadastro de Emprestimo">
 					<h:panelGrid columns="2">
 
@@ -79,9 +80,6 @@ button.ui-button {
 						action="#{emprestimoBean.formParcelas}" process="@this"
 						update="@form: formCadastroEmprestimo: ">
 					</p:commandButton>
-
-
-
 
 
 				</p:fieldset>
