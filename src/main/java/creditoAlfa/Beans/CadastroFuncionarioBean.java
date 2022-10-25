@@ -7,11 +7,9 @@ import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.ConstraintViolationException;
 
 import creditoAlfa.Service.FuncionarioService;
 import creditoAlfa.model.Funcionario;

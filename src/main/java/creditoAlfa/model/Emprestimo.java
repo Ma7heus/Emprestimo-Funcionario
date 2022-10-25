@@ -31,8 +31,6 @@ public class Emprestimo {
 	private Funcionario funcionario;	
 	private BigDecimal valorEmprestimo;
 	private Long totalParcelas;
-	
-	
 	@Temporal(TemporalType.DATE)
 	private Date dataOperacao = new Date();
 	@Temporal(TemporalType.DATE)
@@ -48,9 +46,7 @@ public class Emprestimo {
 		this.totalParcelas = totalParcelas;
 		this.dataOperacao = dataOperacao;
 	}
-	
-	
-	
+
 	
 	public Long getIdEmprestimo() {
 		return idEmprestimo;
@@ -65,6 +61,14 @@ public class Emprestimo {
 		this.funcionario = funcionario;
 	}
 
+	public Date getDataOperacao() {
+		return dataOperacao;
+	}
+
+	public void setDataOperacao(Date dataOperacao) {
+		this.dataOperacao = dataOperacao;
+	}
+
 	public BigDecimal getValorEmprestimo() {
 		return valorEmprestimo;
 	}
@@ -77,12 +81,8 @@ public class Emprestimo {
 	public void setTotalParcelas(Long totalParcelas) {
 		this.totalParcelas = totalParcelas;
 	}
-	public Date getDataOperacao() {
-		return dataOperacao;
-	}
-	public void setDataOperacaoa(Date dataOperacao) {
-		this.dataOperacao = dataOperacao;
-	}
+
+
 
 	public Date getDataPrimeiraParcela() {
 		return dataPrimeiraParcela;

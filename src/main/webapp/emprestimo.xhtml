@@ -25,13 +25,12 @@ button.ui-button {
 						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
 							requiredMessage="Data da Operação é obrigatoria"
 							value="#{emprestimoBean.emprestimo.dataOperacao}">
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
 						<p:outputLabel value="Funcionario:" for="funcionario" />
-						<p:selectOneMenu id="funcionario" value="#{emprestimoBean.funcionarioId}">
+						<p:selectOneMenu id="funcionario"
+							value="#{emprestimoBean.idFuncionario}">
 							<f:selectItems value="#{emprestimoBean.funcionarios}"
 								var="funcionario" itemLabel="#{funcionario.nome}"
 								itemValue="#{funcionario.idFuncionario}" />
@@ -50,11 +49,13 @@ button.ui-button {
 						</p:inputNumber>
 
 						<p:outputLabel value="Parcelas:" for="parcelas" />
-						<p:selectOneMenu id="parcelas" >
-							<f:selectItems var="parcelas"
+						<p:selectOneMenu id="parcelas"
+							value="#{emprestimoBean.idParcelaValue}">
+							<f:selectItems var="parcela"
 								value="#{emprestimoBean.parcelasValues}"
-								itemLabel="#{parcelas.quantidadeParcela}x"></f:selectItems>
-
+								itemLabel="#{parcela.quantidadeParcela}x"
+								itemValue="#{parcela.idParcelaValue}">
+							</f:selectItems>
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
@@ -62,9 +63,6 @@ button.ui-button {
 							mask="99/99/9999"
 							requiredMessage="Data da primeira parcela é obrigatoria"
 							value="#{emprestimoBean.emprestimo.dataPrimeiraParcela}">
-
-							<f:convertDateTime pattern="dd/MM/yyyy"
-								timeZone="America/Sao_Paulo" />
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
@@ -73,7 +71,7 @@ button.ui-button {
 
 					<p:commandButton value="Gerar Parcelas"
 						styleClass="ui-button-success" icon="pi pi-refresh"
-						action="#{emprestimoBean.gerarParcelas}" process="@this"
+						action="#{emprestimoBean.gerarParcelas}" process="@form"
 						update="@form: formCadastroEmprestimo: formListaParcelas">
 					</p:commandButton>
 

@@ -19,7 +19,7 @@ public class Funcionario {
 	@Id
 	@SequenceGenerator(name = "SEQUENSE_FUNCIONARIO", sequenceName = "id_funcionario", allocationSize = 1)
 	@GeneratedValue(generator = "SEQUENSE_FUNCIONARIO", strategy = GenerationType.SEQUENCE)
-	private Long IdFuncionario;
+	private Long idFuncionario;
 	private String nome;
 	@Column(unique = true)
 	private String cpf;
@@ -50,11 +50,11 @@ public class Funcionario {
 	}
 
 	public Long getIdFuncionario() {
-		return IdFuncionario;
+		return idFuncionario;
 	}
 
 	public void setIdFuncionario(Long idFuncionario) {
-		IdFuncionario = idFuncionario;
+		this.idFuncionario = idFuncionario;
 	}
 
 	public String getNome() {

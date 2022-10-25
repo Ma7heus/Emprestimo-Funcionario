@@ -23,13 +23,15 @@ public class ParcelasValues {
 		this.quantidadeParcela = quantidadeParcela;
 	}
 
-	public Long getId() {
+	public Long getIdParcelaValue() {
 		return idParcelaValue;
 	}
 
-	public void setId(Long id) {
-		this.idParcelaValue = id;
+
+	public void setIdParcelaValue(Long idParcelaValue) {
+		this.idParcelaValue = idParcelaValue;
 	}
+
 
 	public Long getQuantidadeParcela() {
 		return quantidadeParcela;
