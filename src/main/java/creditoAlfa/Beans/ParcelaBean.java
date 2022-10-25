@@ -2,6 +2,7 @@ package creditoAlfa.Beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,10 @@ public class ParcelaBean implements Serializable {
 	private Long IdParcela;
 	private List<Parcela> parcelas = new ArrayList<>();
 	private Parcela parcela = new Parcela();
+	private Date dataInicial;
+	private Date dataFinal;
 
+	
 	@PostConstruct
 	public void init() {
 		buscaParcelasPorperiodo();
@@ -41,9 +45,8 @@ public class ParcelaBean implements Serializable {
 	}
 
 	public List<Parcela> buscaParcelasPorperiodo() {
-		System.out.println("Buscando parcelas");
-		System.out.println();
-		return null;
+		System.out.println("Buscando parcelas por periodo");
+		return parcelaService.buscarParcelasPorPeriodo(this.dataInicial,this.dataFinal);
 	}
 
 	public void baixarParcela(Long idParcela) {
@@ -96,5 +99,23 @@ public class ParcelaBean implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	
+	public Date getDataInicial() {
+		return dataInicial;
+	}
+
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
+	}
+
+	public Date getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+
 
 }

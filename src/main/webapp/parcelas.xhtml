@@ -22,17 +22,19 @@ button.ui-button {
 			<p:fieldset>
 				<h1>Baixa de Parcelas de Empréstimo</h1>
 				<h:panelGrid columns="5">
-					<p:outputLabel value="Data vencimento:" for="" />
-					<p:datePicker id="dataInicial" mask="99/99/9999"
+					<p:outputLabel value="Data inicial" for="" />
+					<p:datePicker id="dataInicial" mask="99/99/9999" value="#{parcelaBean.dataInicial}"
 						showIcon="true">
 					</p:datePicker>
 					<p:outputLabel value="Até:" for="" />
-					<p:datePicker id="dataFinal" mask="99/99/9999"
+					<p:datePicker id="dataFinal" mask="99/99/9999" value="#{parcelaBean.dataFinal}"
 						showIcon="true">
 						<p:messages for="dataOperacao" />
 					</p:datePicker>
 
-					<p:commandButton value="Pesquisar">
+					<p:commandButton value="Pesquisar" action="#{parcelaBean.buscaParcelasPorperiodo}"
+						process="@this" update="@form:tabelaEmprestimos">
+					
 					</p:commandButton>
 				</h:panelGrid>
 

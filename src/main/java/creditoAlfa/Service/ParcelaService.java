@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import creditoAlfa.Beans.Util.CalculaMeses;
+import creditoAlfa.Beans.Util.ComparaDatas;
 import creditoAlfa.DAO.ParcelaDAO;
 import creditoAlfa.model.Emprestimo;
 import creditoAlfa.model.Parcela;
@@ -23,6 +24,9 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 	
 	@Inject
 	CalculaMeses calculaMeses;
+	
+	@Inject
+	ComparaDatas comparaDatas;
 
 	@Override
 	public void cadastrar(Parcela entidade) {
@@ -83,6 +87,15 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 		parcela.setValorParcela(new BigDecimal(0));
 		parcela.setValorPago(valorParcela);
 		parcelaDAO.atualizar(parcela);
+	}
+
+	public List<Parcela> buscarParcelasPorPeriodo(Date dataInicial, Date dataFinal) {
+		if (comparaDatas.verificaInicialMenorQueFinal(dataInicial, dataFinal)) {
+			List<Parcela> listaParcelas = parcelaDAO.buscarParcelasPorPeriodo(dataInicial, dataFinal);
+			return listaParcelas;
+		}		
+		
+		return null;
 	}
 		
 	
