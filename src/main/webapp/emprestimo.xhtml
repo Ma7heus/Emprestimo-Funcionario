@@ -32,6 +32,7 @@ button.ui-button {
 						<p:outputLabel value="Funcionario:" for="funcionario" />
 						<p:selectOneMenu id="funcionario"
 							value="#{emprestimoBean.idFuncionario}">
+							<f:selectItem itemLabel="Selecione um funcionario" itemValue="" noSelectionOption="true"/>
 							<f:selectItems value="#{emprestimoBean.funcionarios}"
 								var="funcionario" itemLabel="#{funcionario.nome}"
 								itemValue="#{funcionario.idFuncionario}" />
@@ -52,6 +53,7 @@ button.ui-button {
 						<p:outputLabel value="Parcelas:" for="parcelas" />
 						<p:selectOneMenu id="parcelas"
 							value="#{emprestimoBean.idParcelaValue}">
+							<f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
 							<f:selectItems var="parcela"
 								value="#{emprestimoBean.parcelasValues}"
 								itemLabel="#{parcela.quantidadeParcela}x"
@@ -86,12 +88,11 @@ button.ui-button {
 			</h:form>
 
 			<h:form id="formListaParcelas">
-				<p:dataTable id="tabelaParcelas" value="#{parcelaBean.parcelas}"
+				<p:dataTable id="tabelaParcelas"
 					var="parcelas" paginator="true" rows="5">
-
 					<p:column>
 						<f:facet name="header">Parcela</f:facet>
-						<p:outputLabel value="parcelas.numero" />
+						<p:outputLabel value="parcelas.numero"/>
 					</p:column>
 
 				</p:dataTable>

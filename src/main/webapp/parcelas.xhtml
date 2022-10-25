@@ -10,34 +10,31 @@
 <ui:composition template="_template.xhtml">
 
 	<ui:define name="titulo">
+		<style>
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
+
 
 		<h:form id="formTabelaParcelas">
+		<p:messages/>
 			<p:fieldset>
 				<h1>Baixa de Parcelas de Empréstimo</h1>
+				<h:panelGrid columns="5">
+					<p:outputLabel value="Data vencimento:" for="" />
+					<p:datePicker id="dataInicial" mask="99/99/9999"
+						showIcon="true">
+					</p:datePicker>
+					<p:outputLabel value="Até:" for="" />
+					<p:datePicker id="dataFinal" mask="99/99/9999"
+						showIcon="true">
+						<p:messages for="dataOperacao" />
+					</p:datePicker>
 
-				<p:outputLabel value="Data vencimento:" for="" />
-				<p:datePicker id="dataInicial" required="true" mask="99/99/9999"
-					requiredMessage="Informe a data inicial">
-
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-					<p:messages for="dataOperacao" />
-				</p:datePicker>
-
-				<p:outputLabel value=" Até" for="" />
-				<p:datePicker id="dataFinal" required="true" mask="99/99/9999"
-					requiredMessage="Informe a data final">
-
-					<f:convertDateTime pattern="dd/MM/yyyy"
-						timeZone="America/Sao_Paulo" />
-					<p:messages for="dataOperacao" />
-				</p:datePicker>
-
-
-				<p:commandButton value="Pesquisar">
-				</p:commandButton>
-
-
+					<p:commandButton value="Pesquisar">
+					</p:commandButton>
+				</h:panelGrid>
 
 
 				<p:dataTable id="tabelaEmprestimos" value="#{parcelaBean.parcelas}"
@@ -45,48 +42,51 @@
 
 					<p:column>
 						<f:facet name="header">ID</f:facet>
-						<p:outputLabel value="#{parcela.idParcela}"/>
+						<p:outputLabel value="#{parcela.idParcela}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">Funcionario</f:facet>
-						<p:outputLabel value="#{parcela.emprestimo.funcionario.nome}"/>
+						<p:outputLabel value="#{parcela.emprestimo.funcionario.nome}" />
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Parcela</f:facet>
-						<p:outputLabel value="#{parcela.numParcela}"/>
+						<p:outputLabel value="#{parcela.numParcela}" />
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Vencimento</f:facet>
-						<p:outputLabel value="#{parcela.dataVencimento}"/>
+						<p:outputLabel value="#{parcela.dataVencimento}" />
 					</p:column>
-
 					<p:column>
 						<f:facet name="header">Valor Parcela</f:facet>
-						<p:outputLabel value="#{parcela.valorParcela}"/>
+						<p:outputLabel value="#{parcela.valorParcela}" />
 					</p:column>
-
 					<p:column>
 						<f:facet name="header">Valor Pago</f:facet>
-						<p:outputLabel value="#{parcela.valorPago}"/>
+						<p:outputLabel value="#{parcela.valorPago}" />
 					</p:column>
-
 					<p:column>
 						<f:facet name="header">Opções</f:facet>
-						<p:commandButton id="baixarparcela" value="baixar"
-							class="ui-button-warning rounded-button"  icon="pi pi-arrow-down"
-							oncomplete="PF('baixarParcelaFuncDialog').show()" />
 
-						<p:confirmDialog widgetVar="baixarParcelaFuncDialog"
-							showEffect="fade" width="300" message="Baixar Parcela?"
-							header="Confirm" severity="warn">
-							<p:commandButton value="Yes" icon="pi pi-check"
-								action="parcelaBean."
-								onclick="PF('baixarParcelaFuncDialog').hide()" />
-							<p:commandButton value="No" type="button"
-								styleClass="ui-button-secondary" icon="pi pi-times"
-								onclick="PF('baixarParcelaFuncDialog').hide()" />
+						<p:commandButton id="baixarparcela" value="baixar"
+							class="ui-button-warning rounded-button" icon="pi pi-arrow-down"
+							action="#{parcelaBean.baixarParcela(parcela.idParcela)}"
+							process="@form" update="@form:formTabelaParcelas">
+
+							<p:confirm header="Confirmação" message="Baixar parcela?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+
+						<p:confirmDialog hideEffect="fade" global="true" showEffect="fade"
+							width="300" message="Baixar Parcela?" header="Confirm"
+							severity="warn">
+
+							<p:commandButton value="Yes" type="button" icon="pi pi-check"
+								styleClass="ui-confirmdialog-yes" />
+
+							<p:commandButton value="No" type="button" icon="pi pi-times"
+								styleClass="ui-confirmdialog-no ui-button-flat" />
 						</p:confirmDialog>
 
 					</p:column>

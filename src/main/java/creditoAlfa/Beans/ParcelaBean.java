@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -18,39 +19,48 @@ import creditoAlfa.model.ParcelasValues;
 
 @Named
 @ViewScoped
-public class ParcelaBean implements Serializable{
+public class ParcelaBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	ParcelaService parcelaService;	
+	ParcelaService parcelaService;
+
 	private Long IdParcela;
 	private List<Parcela> parcelas = new ArrayList<>();
 	private Parcela parcela = new Parcela();
-	
-	
+
 	@PostConstruct
 	public void init() {
 		buscaParcelasPorperiodo();
 		buscarTodasParcelas();
 	}
-	
+
 	public void buscarTodasParcelas() {
 		System.out.println("Buscando todas parcelas");
 		this.parcelas = parcelaService.buscarTodos();
 	}
-	
-	
+
 	public List<Parcela> buscaParcelasPorperiodo() {
 		System.out.println("Buscando parcelas");
-		return null;		
+		System.out.println();
+		return null;
 	}
 
-	
-	
-	
-	
-	//--------------------------------------
-	
+	public void baixarParcela(Long idParcela) {
+			if (idParcela == null) {
+			System.out.println("ID PARCELA NULO!");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Id da parcela selecionada é nulo!"));
+		} else {
+			parcelaService.baixarParcela(idParcela);
+			this.parcelas = parcelaService.buscarTodos();
+			System.out.println("PARCELA BAIXADA");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Parcela baixada!"));
+		}
+
+	}
+
+	// --------------------------------------
+
 	public ParcelaService getParcelaService() {
 		return parcelaService;
 	}
@@ -86,17 +96,5 @@ public class ParcelaBean implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
 }

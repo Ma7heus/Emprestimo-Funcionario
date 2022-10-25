@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import creditoAlfa.Service.EmprestimoService;
 import creditoAlfa.Service.FuncionarioService;
+import creditoAlfa.Service.ParcelaService;
 import creditoAlfa.Service.ParcelaValuesService;
 import creditoAlfa.model.Emprestimo;
 import creditoAlfa.model.Funcionario;
@@ -27,6 +28,7 @@ public class EmprestimoBean implements Serializable {
 	
 	private List<ParcelasValues> parcelasValues = new ArrayList<>(); 	
 	private List<Funcionario> funcionarios =  new ArrayList<>();
+	private List<Parcela> parcelas = new ArrayList<>();
 	private Emprestimo emprestimo = new Emprestimo();	
 	private Long idFuncionario;	
 	private Long idParcelaValue;
@@ -39,6 +41,9 @@ public class EmprestimoBean implements Serializable {
 	
 	@Inject
 	ParcelaValuesService parcelaValuesService;
+	
+	@Inject
+	ParcelaService parcelaService;
 
 	
 	@PostConstruct
@@ -51,6 +56,11 @@ public class EmprestimoBean implements Serializable {
 		System.out.println("Buscando lista valores para seleçao das parcelas");
 		this.parcelasValues = parcelaValuesService.buscarTodos();
 	}
+	
+	public void buscarParcelas(Long idEmprestimo) {
+		
+	}
+	
 	
 	public String formParcelas() {
 		return "parcelas?faces-redirect=true";
@@ -113,14 +123,21 @@ public class EmprestimoBean implements Serializable {
 	
 	public void gerarParcelas() {
 		System.out.println("Gerando parcelas!");	
-		System.out.println(this.idFuncionario);
-		System.out.println(this.idParcelaValue);
-		System.out.println(this.emprestimo.getDataOperacao());
-		System.out.println(this.emprestimo.getDataPrimeiraParcela());
-		System.out.println(this.emprestimo.getValorEmprestimo());		
-		emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Emprestimo realizado com sucesso!"));	
-		System.out.println("Emprestimo realizado!");
-		this.emprestimo = new Emprestimo();
+		if (emprestimoService.dataMaiorQueHoje(this.emprestimo)) {
+			emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Emprestimo realizado com sucesso!"));	
+			System.out.println("Emprestimo realizado!");
+			this.emprestimo = new Emprestimo();
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A data do vencimento precisa ser maior que a data atual!"));	
+		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -43,7 +43,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 
 	@Override
 	public Parcela buscaById(Long idEntidade) {
-		return null;
+		return parcelaDAO.buscaById(idEntidade);
 	}
 
 	public void CalculaeCadatraParcelas(Emprestimo emprestimo) {
@@ -76,7 +76,19 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 			}
 		}
 	}
+
+	public void baixarParcela(Long idParcela) {
+		Parcela parcela = parcelaDAO.buscaById(idParcela);
+		BigDecimal valorParcela =  parcela.getValorParcela();
+		parcela.setValorParcela(new BigDecimal(0));
+		parcela.setValorPago(valorParcela);
+		parcelaDAO.atualizar(parcela);
+	}
 		
+	
+	
+	
+	
 		
 	
 
