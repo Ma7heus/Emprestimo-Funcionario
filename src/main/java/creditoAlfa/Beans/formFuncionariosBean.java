@@ -5,13 +5,17 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.RollbackException;
 import javax.validation.ConstraintViolationException;
+
+import org.postgresql.util.PSQLException;
 
 import creditoAlfa.Service.FuncionarioService;
 import creditoAlfa.model.Funcionario;
@@ -28,18 +32,23 @@ public class formFuncionariosBean implements Serializable {
 
 	@Inject
 	FuncionarioService funcionarioService;
-	
+
 	public void deletar(Funcionario funcionario) {
-		System.out.println("Deletando Funcionario " + funcionario.getNome());
-		funcionarioService.deletar(funcionario);
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario excluido com sucesso!"));
+		try {
+			System.out.println("Deletando Funcionario " + funcionario.getNome());
+			funcionarioService.deletar(funcionario);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Funcionario excluido com sucesso!"));
+
+		} catch (EJBTransactionRolledbackException ex) {
+			System.out.println("Não é possivel excluir esse funcionario!, o mesmo é usado por outras tabelas!");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não é possivel excluir esse funcionario!, o mesmo é usado por outras tabelas!"));
+		}
 	}
 
 	public String atualizar(Funcionario funcionarioAtualizar) {
 		System.out.println("Atualizando Funcionario");
-		FacesContext.getCurrentInstance().getExternalContext()
-						.getFlash().put("funcionario", funcionarioAtualizar);
-		
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("funcionario", funcionarioAtualizar);
+
 		return "cadastro?faces-redirect=true";
 	}
 
@@ -52,7 +61,7 @@ public class formFuncionariosBean implements Serializable {
 		System.out.println("Chamando tabela de usuarios");
 		return "funcionarios?faces-redirect=true";
 	}
-	
+
 	public List<Funcionario> getFuncionarios() {
 		return funcionarioService.buscarTodos();
 	}
