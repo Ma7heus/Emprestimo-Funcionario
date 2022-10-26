@@ -87,9 +87,9 @@ button.ui-button {
 			</h:form>
 
 			<h:form id="formListaParcelas">
-				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}" showGridlines="true"
-					var="parcela" paginator="true" rows="10">
-					<p:column>
+				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}" showGridlines="true"  style="width:50%"
+					var="parcela">
+					<p:column  >
 						<f:facet name="header">Parcela</f:facet>
 						<p:outputLabel value="#{parcela.numParcela}"/>
 					</p:column>

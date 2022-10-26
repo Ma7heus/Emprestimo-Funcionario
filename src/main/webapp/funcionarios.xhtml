@@ -18,11 +18,12 @@ button.ui-button {
 		<h:form id="formTabelaFuncionarios">
 			<p:fieldset>
 				<h1>Cadastro de Funcionários</h1>
-				<p:commandButton value="Novo" icon="pi pi-plus"
+				<p:commandButton id="novo" value="Novo" icon="pi pi-plus"
 					action="#{formFuncionariosBean.formCadastrar}">
 
 				</p:commandButton>
-
+				<p:tooltip for="novo" value="Cadastrar novo Funcionario" position="left"/>	
+				
 				<p:dataTable id="tabelaFuncionarios" size="small"
 					value="#{formFuncionariosBean.funcionarios}" var="funcionario"
 					paginator="true" rows="7">
@@ -64,8 +65,6 @@ button.ui-button {
 							action="#{formFuncionariosBean.atualizar(funcionario)}"
 							process="@this" />
 					
-					
-
 						<p:commandButton id="removerFuncionario"
 							class="ui-button-warning rounded-button" icon="pi pi-trash"
 							action="#{formFuncionariosBean.deletar(funcionario)}"

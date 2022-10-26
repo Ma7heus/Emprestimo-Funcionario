@@ -47,7 +47,7 @@ public class ParcelaBean implements Serializable {
 			System.out.println("Buscando parcelas por periodo");
 			List<Parcela> listaParcelas = parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
 			if (listaParcelas == null) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum resultado restornado!"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum resultado retornado!"));
 			} else {
 				this.parcelas = listaParcelas;
 			}
