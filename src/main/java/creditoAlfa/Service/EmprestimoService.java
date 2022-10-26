@@ -2,6 +2,7 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -45,18 +46,20 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 		emprestimoDAO.cadastrar(entidade);
 	}
 
-	public void gerarParcelas(Emprestimo emprestimo, Long idFuncionario, Long idParcelaValue) {
+	public List<Parcela> gerarParcelas(Emprestimo emprestimo, Long idFuncionario, Long idParcelaValue) {
+		List<Parcela> parcelasGeradas = new ArrayList<>(); // lista de parcelas que vai aparecer no front
 		if (dataMaiorQueHoje(emprestimo)) {
 			Funcionario funcionario = funcionarioService.buscaById(idFuncionario);
 			ParcelasValues quantidadeParcelas = parcelaValuesService.buscaById(idParcelaValue);
 			emprestimo.setFuncionario(funcionario);
 			emprestimo.setTotalParcelas(quantidadeParcelas.getQuantidadeParcela());
 
-			parcelaService.CalculaeCadatraParcelas(emprestimo);
+			parcelasGeradas = parcelaService.CalculaeCadatraParcelas(emprestimo); // populando lista
 			cadastrar(emprestimo); // metodo dessa classe
 		}else {
 			throw new RuntimeException("Data da primeira parcela precisa ser maior do que a atual!");
 		}
+		return parcelasGeradas;
 	}
 
 	public boolean dataMaiorQueHoje(Emprestimo emprestimo) {

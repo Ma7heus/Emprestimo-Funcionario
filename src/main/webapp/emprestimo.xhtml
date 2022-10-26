@@ -88,12 +88,25 @@ button.ui-button {
 			</h:form>
 
 			<h:form id="formListaParcelas">
-				<p:dataTable id="tabelaParcelas"
-					var="parcelas" paginator="true" rows="5">
+				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}"
+					var="parcela" paginator="true" rows="5">
 					<p:column>
 						<f:facet name="header">Parcela</f:facet>
-						<p:outputLabel value="parcelas.numero"/>
+						<p:outputLabel value="#{parcela.numParcela}"/>
 					</p:column>
+					<p:column>
+						<f:facet name="header">Vencimento</f:facet>
+						<p:outputLabel value="#{parcela.dataVencimento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"
+							timeZone="America/Sao_Paulo" />
+							</p:outputLabel>
+					</p:column>
+					<p:column>
+						<f:facet name="header">Valor Parcela</f:facet>
+						<p:outputLabel value="R$ #{parcela.valorParcela}"/>
+					</p:column>
+					
+					
 
 				</p:dataTable>
 

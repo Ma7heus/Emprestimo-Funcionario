@@ -2,6 +2,7 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,15 +51,14 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 		return parcelaDAO.buscaById(idEntidade);
 	}
 
-	public void CalculaeCadatraParcelas(Emprestimo emprestimo) {
+	public List<Parcela> CalculaeCadatraParcelas(Emprestimo emprestimo) {
 		BigDecimal taxaJuros = new BigDecimal("0.2");
 		BigDecimal quantidadeParcelas = BigDecimal.valueOf(emprestimo.getTotalParcelas()); //converte Long para BigDecimal
 		BigDecimal totalJuros = emprestimo.getValorEmprestimo().multiply(taxaJuros);
 		BigDecimal valorPorParcela = (totalJuros.add(emprestimo.getValorEmprestimo())).divide(quantidadeParcelas);
 		
 		Date datavencimento = emprestimo.getDataPrimeiraParcela();
-		//Parcela(Date dataVencimento, Emprestimo emprestimo, Long numParcela, BigDecimal valorParcela,
-		//BigDecimal valorPago)
+		List<Parcela> parcelasGeradas = new ArrayList<>(); // lista de parcelas que vai retornar no front
 		
 		for (Long i = 1L; i<=emprestimo.getTotalParcelas() ; i++) {
 			Parcela parcela =  new Parcela();		
@@ -68,6 +68,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorParcela(valorPorParcela);
 				parcela.setValorPago(new BigDecimal(0));
+				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}else {
 				datavencimento = calculaMeses.setMont(datavencimento);	
@@ -76,9 +77,11 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorPago(new BigDecimal(0.0));
 				parcela.setValorParcela(valorPorParcela);
+				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}
 		}
+		return parcelasGeradas;
 	}
 
 	public void baixarParcela(Long idParcela) {
