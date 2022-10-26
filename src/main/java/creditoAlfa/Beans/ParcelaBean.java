@@ -32,10 +32,8 @@ public class ParcelaBean implements Serializable {
 	private Date dataInicial;
 	private Date dataFinal;
 
-	
 	@PostConstruct
 	public void init() {
-		buscaParcelasPorperiodo();
 		buscarTodasParcelas();
 	}
 
@@ -44,13 +42,34 @@ public class ParcelaBean implements Serializable {
 		this.parcelas = parcelaService.buscarTodos();
 	}
 
-	public List<Parcela> buscaParcelasPorperiodo() {
-		System.out.println("Buscando parcelas por periodo");
-		return parcelaService.buscarParcelasPorPeriodo(this.dataInicial,this.dataFinal);
+	public void buscaParcelasPorperiodo() {
+		if (verificaDatas()) {
+			System.out.println("Buscando parcelas por periodo");
+			List<Parcela> listaParcelas = parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
+			if (listaParcelas == null) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum resultado restornado!"));
+			} else {
+				this.parcelas = listaParcelas;
+			}
+		}
+	}
+
+	private Boolean verificaDatas() {
+		if (dataInicial == null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Selecione a data inicial para consulta!"));
+			return false;
+		}
+		if (dataFinal == null) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Selecione a data final para consulta!"));
+			return false;
+		}
+		return true;
 	}
 
 	public void baixarParcela(Long idParcela) {
-			if (idParcela == null) {
+		if (idParcela == null) {
 			System.out.println("ID PARCELA NULO!");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Id da parcela selecionada é nulo!"));
 		} else {
@@ -99,8 +118,7 @@ public class ParcelaBean implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
+
 	public Date getDataInicial() {
 		return dataInicial;
 	}
@@ -116,6 +134,5 @@ public class ParcelaBean implements Serializable {
 	public void setDataFinal(Date dataFinal) {
 		this.dataFinal = dataFinal;
 	}
-
 
 }

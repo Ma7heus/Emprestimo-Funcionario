@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.TypedQuery;
 
-import creditoAlfa.model.Emprestimo;
 import creditoAlfa.model.Parcela;
 
 @Stateless
@@ -17,11 +17,11 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializab
 	}
 
 	public List<Parcela> buscarParcelasPorPeriodo(Date dataInicial, Date dataFinal) {
-		List<Parcela> listaParcelas = entityManager.createQuery("SELECT parcela FROM Parcela parcela where "
-				+ " dataVencimento >= :dataInicial and dataVencimento <= :dataFinal ";);
-		return null;
+		String query = "SELECT parcela FROM Parcela parcela where "
+				+ " dataVencimento >= :dataInicial and dataVencimento <= :dataFinal ";
+		TypedQuery<Parcela> typedQuery = entityManager.createQuery(query, Parcela.class);
+		typedQuery.setParameter("dataInicial", dataInicial);
+		typedQuery.setParameter("dataFinal", dataFinal);
+		return typedQuery.getResultList();
 	}
-
 }
-//return entityManager.createQuery(" select entidade from " + clazz.getSimpleName() + " entidade ",
-//clazz).getResultList();

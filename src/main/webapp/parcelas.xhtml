@@ -33,7 +33,7 @@ button.ui-button {
 					</p:datePicker>
 
 					<p:commandButton value="Pesquisar" action="#{parcelaBean.buscaParcelasPorperiodo}"
-						process="@this" update="@form:tabelaEmprestimos">
+						process="@form" update="@form:tabelaEmprestimos :formTabelaParcelas">
 					
 					</p:commandButton>
 				</h:panelGrid>
