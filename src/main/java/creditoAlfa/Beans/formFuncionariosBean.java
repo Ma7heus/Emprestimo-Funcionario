@@ -30,7 +30,7 @@ public class formFuncionariosBean implements Serializable {
 	FuncionarioService funcionarioService;
 	
 	public void deletar(Funcionario funcionario) {
-		System.out.println("Deletando Funcionario");
+		System.out.println("Deletando Funcionario " + funcionario.getNome());
 		funcionarioService.deletar(funcionario);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Usuario excluido com sucesso!"));
 	}

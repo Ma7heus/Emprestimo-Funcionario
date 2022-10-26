@@ -13,13 +13,20 @@
 
 <h:body>
 	<div id="cabecalho">
-		<h:form>
-			<p:menuButton value="Menu" icon="pi pi-home">
-				<p:menuitem value="Funcionarios" action="funcionarios?faces-redirect=true" icon="pi pi-user" />
-				<p:menuitem value="Novo Emprestimo" action="emprestimo?faces-redirect=true" icon="pi pi-plus" />
-				<p:menuitem value="Baixar emprestimo" action="parcelas?faces-redirect=true" icon="pi pi-arrow-down"/>
-			</p:menuButton>
-		</h:form>
+		<p:toolbar>
+			<p:toolbarGroup>
+				<h:form>
+					<p:menuButton value="Menu" icon="pi pi-home">
+						<p:menuitem value="Funcionarios"
+							action="funcionarios?faces-redirect=true" icon="pi pi-user" />
+						<p:menuitem value="Novo Emprestimo"
+							action="emprestimo?faces-redirect=true" icon="pi pi-plus" />
+						<p:menuitem value="Baixar emprestimo"
+							action="parcelas?faces-redirect=true" icon="pi pi-arrow-down" />
+					</p:menuButton>
+				</h:form>
+			</p:toolbarGroup>
+		</p:toolbar>
 		<h1>
 			<ui:insert name="titulo"></ui:insert>
 		</h1>

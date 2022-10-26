@@ -73,7 +73,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcelaDAO.cadastrar(parcela);	
 			}else {
 				datavencimento = calculaMeses.setMont(datavencimento);	
-				parcela.setDataVencimento(emprestimo.getDataPrimeiraParcela());			
+				parcela.setDataVencimento(datavencimento);			
 				parcela.setEmprestimo(emprestimo);
 				parcela.setNumParcela(i);
 				parcela.setValorPago(new BigDecimal(0.0));

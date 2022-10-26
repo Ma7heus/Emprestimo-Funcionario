@@ -10,7 +10,11 @@
 <ui:composition template="_template.xhtml">
 
 	<ui:define name="titulo">
-
+<style>
+button.ui-button {
+	margin-right: .5rem;
+}
+</style>
 		<h:form id="formTabelaFuncionarios">
 			<p:fieldset>
 				<h1>Cadastro de Funcionários</h1>
@@ -19,9 +23,9 @@
 
 				</p:commandButton>
 
-				<p:dataTable id="tabelaFuncionarios"
+				<p:dataTable id="tabelaFuncionarios" size="small"
 					value="#{formFuncionariosBean.funcionarios}" var="funcionario"
-					paginator="true" rows="5">
+					paginator="true" rows="7">
 
 					<p:column sortBy="#{funcionario.idFuncionario}">
 						<f:facet name="header">ID</f:facet>
@@ -55,28 +59,31 @@
 					</p:column>
 
 					<p:column>
-						<f:facet name="header">Alterar</f:facet>
-						<p:commandButton id="atualizaProduto" icon="pi pi-pencil"
+						<f:facet name="header">Opções</f:facet>
+						<p:commandButton id="atualizaProduto" icon="pi pi-pencil" 
 							action="#{formFuncionariosBean.atualizar(funcionario)}"
 							process="@this" />
-					</p:column>
+					
+					
 
-					<p:column>
-						<f:facet name="header">Remover</f:facet>
-						<p:commandButton id="removerProduto"
+						<p:commandButton id="removerFuncionario"
 							class="ui-button-warning rounded-button" icon="pi pi-trash"
-							oncomplete="PF('deleteFuncDialog').show()" />
+							action="#{formFuncionariosBean.deletar(funcionario)}"
+							process="@this" update="@form :formTabelaFuncionarios">
 
-						<p:confirmDialog widgetVar="deleteFuncDialog" showEffect="fade"
-							width="300" message="Remover Funcionario?" header="Confirm"
+							<p:confirm header="Confirmação" message="Excluir Funcionario?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+
+						<p:confirmDialog hideEffect="fade" global="true" showEffect="fade"
+							width="300" message="Excluir Funcionario?" header="Confirm"
 							severity="warn">
-							<p:commandButton value="Yes" icon="pi pi-check"
-								action="#{formFuncionariosBean.deletar(funcionario)}"
-								process="@this" update="@form :formTabelaFuncionarios"
-								onclick="PF('deleteFuncDialog').hide()" />
-							<p:commandButton value="No" type="button"
-								styleClass="ui-button-secondary" icon="pi pi-times"
-								onclick="PF('deleteFuncDialog').hide()" />
+
+							<p:commandButton value="Yes" type="button" icon="pi pi-check"
+								styleClass="ui-confirmdialog-yes" />
+
+							<p:commandButton value="No" type="button" icon="pi pi-times"
+								styleClass="ui-confirmdialog-no ui-button-flat" />
 						</p:confirmDialog>
 
 					</p:column>
