@@ -56,7 +56,7 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 
 			parcelasGeradas = parcelaService.CalculaeCadatraParcelas(emprestimo); // populando lista
 			cadastrar(emprestimo); // metodo dessa classe
-		}else {
+		} else {
 			throw new RuntimeException("Data da primeira parcela precisa ser maior do que a atual!");
 		}
 		return parcelasGeradas;
@@ -65,7 +65,23 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 	public boolean dataMaiorQueHoje(Emprestimo emprestimo) {
 		Date dataAtual = new Date();
 		Date dataPrimeiraParcela = emprestimo.getDataPrimeiraParcela();
-		if (dataAtual.compareTo(dataPrimeiraParcela) <=0) {
+		if (dataAtual.compareTo(dataPrimeiraParcela) <= 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public Boolean verificaEmprestimosExistentesParaFuncionario(Long idFuncionario) {
+		System.out.println("Verificando se existem emprestimos sem pagar");
+		List<Parcela> listaParcelas = parcelaService.buscarParcelasPorUsuario(idFuncionario);
+		BigDecimal totalParcelasDevidas = new BigDecimal(0);
+		BigDecimal totalParcelasPagas = new BigDecimal(0);
+		for (Parcela parcela : listaParcelas) {
+			totalParcelasDevidas = totalParcelasDevidas.add(parcela.getValorParcela());
+			totalParcelasPagas = totalParcelasPagas.add(parcela.getValorPago());
+		}
+
+		if (totalParcelasDevidas == BigDecimal.ZERO) {
 			return true;
 		}
 		return false;

@@ -24,4 +24,12 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializab
 		typedQuery.setParameter("dataFinal", dataFinal);
 		return typedQuery.getResultList();
 	}
+
+	public List<Parcela> buscarParcelasPorUsuario(Long idFuncionarioParcela) {
+		String query = "SELECT parcela FROM Parcela parcela WHERE "
+				+ " idFuncionario = :idFuncionarioParcela ";
+		TypedQuery<Parcela> typedQuery = entityManager.createQuery(query, Parcela.class);
+		typedQuery.setParameter("idFuncionarioParcela", idFuncionarioParcela);
+		return typedQuery.getResultList();
+	}
 }

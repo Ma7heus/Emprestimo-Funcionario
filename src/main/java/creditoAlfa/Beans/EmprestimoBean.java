@@ -122,14 +122,18 @@ public class EmprestimoBean implements Serializable {
 	}
 	
 	public void gerarParcelas() {
-		System.out.println("Gerando parcelas!");	
-		if (emprestimoService.dataMaiorQueHoje(this.emprestimo)) {
-			this.parcelas = emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue); // gera parecelas e retorna lista para o front
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Emprestimo realizado com sucesso!"));	
-			System.out.println("Emprestimo realizado!");
-			this.emprestimo = new Emprestimo();
-		}else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A data do vencimento precisa ser maior que a data atual!"));	
+		if (emprestimoService.verificaEmprestimosExistentesParaFuncionario(this.idFuncionario)) {
+			if (emprestimoService.dataMaiorQueHoje(this.emprestimo)) {
+				this.parcelas = emprestimoService.gerarParcelas(this.emprestimo,idFuncionario,idParcelaValue); // gera parecelas e retorna lista para o front
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Emprestimo realizado com sucesso!"));	
+				System.out.println("Emprestimo realizado!");
+				this.emprestimo = new Emprestimo();
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("A data do vencimento precisa ser maior que a data atual!"));	
+			}
+		
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Ja existem emprestimos vigentes para esse funcionario!"));
 		}
 	}
 

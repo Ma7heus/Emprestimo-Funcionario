@@ -68,6 +68,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorParcela(valorPorParcela);
 				parcela.setValorPago(new BigDecimal(0));
+				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}else {
@@ -77,6 +78,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorPago(new BigDecimal(0.0));
 				parcela.setValorParcela(valorPorParcela);
+				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}
@@ -99,6 +101,10 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 		}		
 		
 		return null;
+	}
+
+	public List<Parcela> buscarParcelasPorUsuario(Long idFuncionario) {		
+		return parcelaDAO.buscarParcelasPorUsuario(idFuncionario);
 	}
 		
 	

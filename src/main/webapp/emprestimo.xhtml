@@ -30,10 +30,10 @@ button.ui-button {
 						</p:datePicker>
 
 						<p:outputLabel value="Funcionario:" for="funcionario" />
-						<p:selectOneMenu id="funcionario"
+						<p:selectOneMenu id="funcionario" required="true" requiredMessage=" * Informe o funcionario!"
 							value="#{emprestimoBean.idFuncionario}">
 							<f:selectItem itemLabel="Selecione um funcionario" itemValue="" noSelectionOption="true"/>
-							<f:selectItems value="#{emprestimoBean.funcionarios}"
+							<f:selectItems value="#{emprestimoBean.funcionarios}" 
 								var="funcionario" itemLabel="#{funcionario.nome}"
 								itemValue="#{funcionario.idFuncionario}" />
 						</p:selectOneMenu>
@@ -44,14 +44,13 @@ button.ui-button {
 							value="#{emprestimoBean.emprestimo.valorEmprestimo}"
 							required="true" symbol=" R$" symbolPosition="s"
 							decimalSeparator="," thousandSeparator="." mask="999.999"
-							requiredMessage="É necessario informar o valor do Emprestimo"
+							requiredMessage=" * Informe o valor do Emprestimo!"
 							validatorMessage="Nao pode ser superior a 16 caracteres">
 							<f:validateLength maximum="8" />
-							<p:messages for="valorEmprestimo" />
 						</p:inputNumber>
 
 						<p:outputLabel value="Parcelas:" for="parcelas" />
-						<p:selectOneMenu id="parcelas"
+						<p:selectOneMenu id="parcelas"  required="true" requiredMessage=" * Informe a quantidade de parcelas!"
 							value="#{emprestimoBean.idParcelaValue}">
 							<f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
 							<f:selectItems var="parcela"
@@ -89,7 +88,7 @@ button.ui-button {
 
 			<h:form id="formListaParcelas">
 				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}"
-					var="parcela" paginator="true" rows="5">
+					var="parcela" paginator="true" rows="10">
 					<p:column>
 						<f:facet name="header">Parcela</f:facet>
 						<p:outputLabel value="#{parcela.numParcela}"/>

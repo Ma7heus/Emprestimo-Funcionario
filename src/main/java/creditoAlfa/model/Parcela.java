@@ -32,6 +32,7 @@ public class Parcela {
 	@JoinColumn(name = "idEmprestimo", foreignKey = @ForeignKey(name="fk_emprestimo"))
 	private Emprestimo emprestimo;
 	private Long numParcela;
+	private Long idFuncionario;
 	private BigDecimal valorParcela;
 	private BigDecimal valorPago;
 	
@@ -90,6 +91,18 @@ public class Parcela {
 
 	public void setNumParcela(Long numParcela) {
 		this.numParcela = numParcela;
+	}
+
+
+
+	public Long getIdFuncionario() {
+		return idFuncionario;
+	}
+
+
+
+	public void setIdFuncionario(Long idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 
 
