@@ -74,8 +74,8 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 	public Boolean verificaEmprestimosExistentesParaFuncionario(Long idFuncionario) {
 		System.out.println("Verificando se existem emprestimos sem pagar");
 		List<Parcela> listaParcelas = parcelaService.buscarParcelasPorUsuario(idFuncionario);
-		BigDecimal totalParcelasDevidas = new BigDecimal(0);
-		BigDecimal totalParcelasPagas = new BigDecimal(0);
+		BigDecimal totalParcelasDevidas =  BigDecimal.ZERO;
+		BigDecimal totalParcelasPagas =  BigDecimal.ZERO;
 		for (Parcela parcela : listaParcelas) {
 			totalParcelasDevidas = totalParcelasDevidas.add(parcela.getValorParcela());
 			totalParcelasPagas = totalParcelasPagas.add(parcela.getValorPago());
