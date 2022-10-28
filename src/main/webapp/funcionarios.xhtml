@@ -16,18 +16,15 @@ button.ui-button {
 }
 </style>
 		<h:form id="formTabelaFuncionarios">
-		<p:messages/>
+		<p:growl id="msg"/>
 			<p:fieldset>
 				<h1>Cadastro de Funcionários</h1>
 				<p:commandButton id="novo" value="Novo" icon="pi pi-plus"
 					action="#{formFuncionariosBean.formCadastrar}">
-
 				</p:commandButton>
-				<p:tooltip for="novo" value="Cadastrar novo Funcionario" position="left"/>	
-				
 				<p:dataTable id="tabelaFuncionarios" size="small"
 					value="#{formFuncionariosBean.funcionarios}" var="funcionario"
-					paginator="true" rows="7">
+					paginator="true" rows="7" paginatorPosition="bottom">
 
 					<p:column sortBy="#{funcionario.idFuncionario}">
 						<f:facet name="header">ID</f:facet>
@@ -57,6 +54,8 @@ button.ui-button {
 					<p:column sortBy="#{funcionario.dataAdmissao}">
 						<f:facet name="header">Data Admissão</f:facet>
 						<p:outputLabel value="#{funcionario.dataAdmissao}">
+						<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
 						</p:outputLabel>
 					</p:column>
 

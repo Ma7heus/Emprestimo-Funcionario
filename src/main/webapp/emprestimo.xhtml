@@ -18,32 +18,36 @@ button.ui-button {
 
 		<div id="cabecalho">
 			<h:form id="formCadastroEmprestimo">
-				<p:messages />
+				<p:growl id="msg"/>
 				<p:fieldset legend="Cadastro de Emprestimo">
 					<h:panelGrid columns="2">
 
 						<p:outputLabel value="Data de Operação:" for="dataOperacao" />
-						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
-							requiredMessage="Data da Operação é obrigatoria"
+						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999" showIcon="true"
+							requiredMessage="Data da Operação é obrigatoria" size="20"
 							value="#{emprestimoBean.emprestimo.dataOperacao}">
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
 						<p:outputLabel value="Funcionario:" for="funcionario" />
 						<p:selectOneMenu id="funcionario" required="true" requiredMessage=" * Informe o funcionario!"
-							value="#{emprestimoBean.idFuncionario}">
+							value="#{emprestimoBean.idFuncionario}" >
 							<f:selectItem itemLabel="Selecione um funcionario" itemValue="" noSelectionOption="true"/>
-							<f:selectItems value="#{emprestimoBean.funcionarios}" 
+							<f:selectItems value="#{emprestimoBean.funcionarios}"
 								var="funcionario" itemLabel="#{funcionario.nome}"
 								itemValue="#{funcionario.idFuncionario}" />
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Emprestimo:" for="valorEmprestimo" />
-						<p:inputNumber size="20" id="valorEmprestimo"
+						<p:inputNumber size="25" id="valorEmprestimo"
 							placeholder="Valor Emprestimo"
 							value="#{emprestimoBean.emprestimo.valorEmprestimo}"
+							
 							required="true" symbol=" R$" symbolPosition="s"
-							decimalSeparator="," thousandSeparator="." mask="999.999"
+							decimalSeparator="," thousandSeparator="." mask="999,99"
+							
+							
+							
 							requiredMessage=" * Informe o valor do Emprestimo!"
 							validatorMessage="Nao pode ser superior a 16 caracteres">
 							<f:validateLength maximum="8" />
@@ -61,15 +65,15 @@ button.ui-button {
 						</p:selectOneMenu>
 
 						<p:outputLabel value="Primeira parcela:" for="primeiraParcela" />
-						<p:datePicker id="primeiraParcela" required="true"
-							mask="99/99/9999"
+						<p:datePicker id="primeiraParcela" required="true" showIcon="true"
+							mask="99/99/9999" size="20"
 							requiredMessage="Data da primeira parcela é obrigatoria"
 							value="#{emprestimoBean.emprestimo.dataPrimeiraParcela}">
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
 					</h:panelGrid>
-					<br />
+					<br/>
 
 					<p:commandButton value="Gerar Parcelas"
 						styleClass="ui-button-success" icon="pi pi-refresh"
@@ -102,7 +106,9 @@ button.ui-button {
 					</p:column>
 					<p:column>
 						<f:facet name="header">Valor Parcela</f:facet>
-						<p:outputLabel value="R$ #{parcela.valorParcela}"/>
+						<p:outputLabel  value="R$ #{parcela.valorParcela}"
+						 decimalSeparator="," thousandSeparator="."/>
+						
 					</p:column>
 					
 					

@@ -32,4 +32,16 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializab
 		typedQuery.setParameter("idFuncionarioParcela", idFuncionarioParcela);
 		return typedQuery.getResultList();
 	}
+	
+	public List<Parcela> buscarParcelasVencidas(){
+		String query = ""; // terminar função
+		return null;
+		
+		
+	
+		
+	}
+	
+	
+	
 }

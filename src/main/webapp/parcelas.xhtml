@@ -18,53 +18,70 @@ button.ui-button {
 
 
 		<h:form id="formTabelaParcelas">
-		<p:messages/>
+			<p:growl id="msg" />
 			<p:fieldset>
 				<h1>Baixa de Parcelas de Empréstimo</h1>
 				<h:panelGrid columns="5">
 					<p:outputLabel value="Data de Vencimento" for="" />
-					<p:datePicker id="dataInicial" mask="99/99/9999" value="#{parcelaBean.dataInicial}"
-						showIcon="true">
+					<p:datePicker id="dataInicial" mask="99/99/9999"
+						value="#{parcelaBean.dataInicial}" showIcon="true">
 					</p:datePicker>
 					<p:outputLabel value="Até:" for="" />
-					<p:datePicker id="dataFinal" mask="99/99/9999" value="#{parcelaBean.dataFinal}"
-						showIcon="true">
+					<p:datePicker id="dataFinal" mask="99/99/9999"
+						value="#{parcelaBean.dataFinal}" showIcon="true">
 						<p:messages for="dataOperacao" />
 					</p:datePicker>
 
-					<p:commandButton value="Pesquisar" action="#{parcelaBean.buscaParcelasPorperiodo}"
-						process="@form" update="@form:tabelaEmprestimos :formTabelaParcelas">
-					
+					<p:commandButton value="Pesquisar"
+						action="#{parcelaBean.buscaParcelasPorperiodo}" process="@form"
+						update="@form:tabelaEmprestimos :formTabelaParcelas">
 					</p:commandButton>
+					<br />
 				</h:panelGrid>
 
+				<h:panelGrid columns="4">				
+					
+					<p:selectBooleanCheckbox value="#{parcelaBean.check}"
+						itemLabel="Mostrar todas parcelas vencidas">
+						<p:ajax update="msg" listener="#{parcelaBean.mostraMensagem}" />
+					</p:selectBooleanCheckbox>
+					
+				</h:panelGrid>
 
-				<p:dataTable id="tabelaEmprestimos" value="#{parcelaBean.parcelas}" size="small"
-					var="parcela" paginator="true" rows="5">
+				<br />
 
-					<p:column>
+				<p:dataTable id="tabelaEmprestimos" value="#{parcelaBean.parcelas}"
+					size="small" var="parcela" paginator="true" rows="5"
+					paginatorPosition="bottom">
+
+					<p:column sortBy="#{parcela.idParcela}">
 						<f:facet name="header">ID</f:facet>
 						<p:outputLabel value="#{parcela.idParcela}" />
 					</p:column>
-					<p:column>
+					<p:column sortBy="#{parcela.emprestimo.funcionario.nome}"
+						filterBy="#{parcela.emprestimo.funcionario.nome}">
 						<f:facet name="header">Funcionario</f:facet>
 						<p:outputLabel value="#{parcela.emprestimo.funcionario.nome}" />
 					</p:column>
 
-					<p:column>
+					<p:column sortBy="#{parcela.numParcela}">
 						<f:facet name="header">Parcela</f:facet>
 						<p:outputLabel value="#{parcela.numParcela}" />
 					</p:column>
 
-					<p:column>
+					<p:column sortBy="#{parcela.dataVencimento}">
 						<f:facet name="header">Vencimento</f:facet>
-						<p:outputLabel value="#{parcela.dataVencimento}" />
+						<p:outputLabel value="#{parcela.dataVencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:outputLabel>
 					</p:column>
-					<p:column>
+					<p:column sortBy="#{parcela.valorParcela}">
 						<f:facet name="header">Valor Parcela</f:facet>
-						<p:outputLabel value="#{parcela.valorParcela}" />
+						<h:outputText value="#{parcela.valorParcela}">
+						</h:outputText>
 					</p:column>
-					<p:column>
+					<p:column sortBy="#{parcela.valorPago}">
 						<f:facet name="header">Valor Pago</f:facet>
 						<p:outputLabel value="#{parcela.valorPago}" />
 					</p:column>

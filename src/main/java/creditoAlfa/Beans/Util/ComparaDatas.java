@@ -1,8 +1,9 @@
 package creditoAlfa.Beans.Util;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ComparaDatas {
+public class ComparaDatas implements Serializable {
 
 	public boolean verificaInicialMenorQueFinal(Date dataInicial, Date dataFinal) {
 		if (dataInicial.compareTo(dataFinal) <=0) {

@@ -37,11 +37,13 @@ public class formFuncionariosBean implements Serializable {
 		try {
 			System.out.println("Deletando Funcionario " + funcionario.getNome());
 			funcionarioService.deletar(funcionario);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Funcionario excluido com sucesso!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO
+					,"Funcionario excluido com sucesso!",null));
 
 		} catch (EJBTransactionRolledbackException ex) {
 			System.out.println("Não é possivel excluir esse funcionario!, o mesmo é usado por outras tabelas!");
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Não é possivel excluir esse funcionario!, o mesmo é usado por outras tabelas!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN
+					,"Não é possivel excluir esse funcionario! O mesmo é usado por outras tabelas!",null));
 		}
 	}
 
@@ -63,7 +65,10 @@ public class formFuncionariosBean implements Serializable {
 	}
 
 	public List<Funcionario> getFuncionarios() {
-		return funcionarioService.buscarTodos();
+		if (this.funcionarios == null) {
+			this.funcionarios = funcionarioService.buscarTodos();
+		}
+		return funcionarios;
 	}
 
 	public Funcionario getFuncionario() {

@@ -26,7 +26,6 @@ public class CadastroFuncionarioBean implements Serializable {
 
 	@Inject
 	FuncionarioService funcionarioService;
-	
 
 	@PostConstruct
 	public void init() {
@@ -39,25 +38,28 @@ public class CadastroFuncionarioBean implements Serializable {
 		}
 	}
 
-	public void cadastrar() {
+	public String cadastrar() {
 		if (this.funcionario.getIdFuncionario() == null) {
 			System.out.println("Cadastrando Funcionario " + this.funcionario.getNome());
 			if (funcionarioService.funcionarioAlreadyExist(this.funcionario)) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("O cpf " + this.funcionario.getCpf() + " já existe no banco!"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+						"O cpf " + this.funcionario.getCpf() + " já existe no banco!", null));
+				return "cadastro?faces-redirect=true";
 			} else {
 				funcionarioService.cadastrar(this.funcionario);
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Novo funcionario cadastrado!"));
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo funcionario cadastrado!", null));
 				this.funcionario = new Funcionario();
+				return "funcionarios?faces-redirect=true";
 			}
-
-		}else {
+		} else {
 			System.out.println("Atualizando Funcionario " + this.funcionario.getNome());
 			funcionarioService.atualizar(this.funcionario);
 			this.funcionario = new Funcionario();
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Funcionario atualizado com sucesso!"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Funcionario atualizado com sucesso!", null));
+			return "funcionarios?faces-redirect=true";
 		}
-
 	}
 
 	public String tabelaFuncionarios() {

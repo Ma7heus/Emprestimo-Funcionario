@@ -55,6 +55,13 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 			}
 		}		
 		return false;		
+	}
+
+	public Boolean validaNomeFuncionario(String nomeFuncionario) {
+		if (nomeFuncionario.matches("[A-Z]*")) {
+			return true;
+		}
+		return false;
 	};
 	
 

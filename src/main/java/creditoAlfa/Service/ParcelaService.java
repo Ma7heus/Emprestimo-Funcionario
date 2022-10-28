@@ -2,6 +2,7 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +58,10 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 		BigDecimal totalJuros = emprestimo.getValorEmprestimo().multiply(taxaJuros);
 		BigDecimal valorPorParcela = (totalJuros.add(emprestimo.getValorEmprestimo())).divide(quantidadeParcelas);
 		
+		// ajustar valor salvo
+		System.out.println(" Antes: " + valorPorParcela.toString());		
+		System.out.println(" Depois: " + valorPorParcela.toString());
+		
 		Date datavencimento = emprestimo.getDataPrimeiraParcela();
 		List<Parcela> parcelasGeradas = new ArrayList<>(); // lista de parcelas que vai retornar no front
 		
@@ -67,7 +72,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setEmprestimo(emprestimo);
 				parcela.setNumParcela(i);
 				parcela.setValorParcela(valorPorParcela);
-				parcela.setValorPago(new BigDecimal(0));
+				parcela.setValorPago(BigDecimal.ZERO);
 				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
@@ -76,8 +81,8 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setDataVencimento(datavencimento);			
 				parcela.setEmprestimo(emprestimo);
 				parcela.setNumParcela(i);
-				parcela.setValorPago(new BigDecimal(0.0));
 				parcela.setValorParcela(valorPorParcela);
+				parcela.setValorPago(BigDecimal.ZERO);
 				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
@@ -89,7 +94,6 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 	public void baixarParcela(Long idParcela) {
 		Parcela parcela = parcelaDAO.buscaById(idParcela);
 		BigDecimal valorParcela =  parcela.getValorParcela();
-		parcela.setValorParcela(new BigDecimal(0));
 		parcela.setValorPago(valorParcela);
 		parcelaDAO.atualizar(parcela);
 	}
@@ -106,6 +110,12 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 	public List<Parcela> buscarParcelasPorUsuario(Long idFuncionario) {		
 		return parcelaDAO.buscarParcelasPorUsuario(idFuncionario);
 	}
+
+	public List<Parcela> buscarParcelasVencidas() {
+		return parcelaDAO.buscarParcelasVencidas();
+	}
+
+
 		
 	
 	

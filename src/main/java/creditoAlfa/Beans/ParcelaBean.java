@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,11 +13,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import creditoAlfa.Beans.Util.ComparaDatas;
 import creditoAlfa.Service.ParcelaService;
-import creditoAlfa.Service.ParcelaValuesService;
-import creditoAlfa.model.Funcionario;
 import creditoAlfa.model.Parcela;
-import creditoAlfa.model.ParcelasValues;
 
 @Named
 @ViewScoped
@@ -26,57 +25,82 @@ public class ParcelaBean implements Serializable {
 	@Inject
 	ParcelaService parcelaService;
 
+	@Inject
+	ComparaDatas comparaDatas;
+
 	private Long IdParcela;
 	private List<Parcela> parcelas = new ArrayList<>();
 	private Parcela parcela = new Parcela();
 	private Date dataInicial;
 	private Date dataFinal;
+	private Boolean check;
 
 	@PostConstruct
 	public void init() {
 		buscarTodasParcelas();
 	}
+	
+	public void mostraMensagem() {
+		String texto = check ? "Selecionado!" : "Não Selecionado";
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(texto));
+		System.out.println("teste testando teste dois teste");
+	}
+
 
 	public void buscarTodasParcelas() {
 		System.out.println("Buscando todas parcelas");
 		this.parcelas = parcelaService.buscarTodos();
 	}
 
-	public void buscaParcelasPorperiodo() {
-		if (verificaDatas()) {
-			System.out.println("Buscando parcelas por periodo");
-			List<Parcela> listaParcelas = parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
-			if (listaParcelas == null) {
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Nenhum resultado retornado!"));
-			} else {
-				this.parcelas = listaParcelas;
+	public void checkBoxBuscarParcelasVencidas() {
+		System.out.println("Buscando parcelas vencidas");
+		List<Parcela> listaParcelas = this.parcelas;
+		List<Parcela> listaParcelasVencidas = new ArrayList<>();
+		Date dataAtual = new Date();
+		for (Parcela parcela : listaParcelas) {
+			if (!comparaDatas.verificaInicialMaiorQueFinal(dataAtual, parcela.getDataVencimento())) {
+				listaParcelasVencidas.add(parcela);
 			}
 		}
+		this.parcelas = listaParcelasVencidas;
+	}
+
+	public void buscaParcelasPorperiodo() {
+		if (verificaDatas()){
+			System.out.println("Buscando parcelas por periodo");
+			this.parcelas= parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
+		}
+		
 	}
 
 	private Boolean verificaDatas() {
 		if (dataInicial == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Selecione a data inicial para consulta!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Selecione a data de vencimento inicial para consulta!", null));
 			return false;
 		}
 		if (dataFinal == null) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Selecione a data final para consulta!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+					"Selecione a data de vencimento final para consulta!", null));
 			return false;
 		}
 		return true;
 	}
 
 	public void baixarParcela(Long idParcela) {
-		if (idParcela == null) {
-			System.out.println("ID PARCELA NULO!");
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Id da parcela selecionada é nulo!"));
-		} else {
-			parcelaService.baixarParcela(idParcela);
-			this.parcelas = parcelaService.buscarTodos();
-			System.out.println("PARCELA BAIXADA");
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Parcela baixada!"));
+		Parcela parcela = parcelaService.buscaById(idParcela);
+		if (Objects.nonNull(parcela)) {
+			if (parcela.getValorPago().equals(parcela.getValorParcela())) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Parcela já foi baixada!", null));
+			} else {
+				parcelaService.baixarParcela(idParcela);
+				System.out.println("PARCELA BAIXADA");
+
+				this.parcelas = parcelaService.buscarTodos();
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Parcela baixada!", null));
+			}
 		}
 
 	}
@@ -135,4 +159,20 @@ public class ParcelaBean implements Serializable {
 		this.dataFinal = dataFinal;
 	}
 
+	public int getDadosCheckbox() {
+		return dadosCheckbox;
+	}
+
+	public void setDadosCheckbox(int dadosCheckbox) {
+		this.dadosCheckbox = dadosCheckbox;
+	}
+
+	public Boolean getCheck() {
+		return check;
+	}
+
+
+	public void setCheck(Boolean check) {
+		this.check = check;
+	}
 }

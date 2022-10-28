@@ -80,10 +80,11 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 			totalParcelasDevidas = totalParcelasDevidas.add(parcela.getValorParcela());
 			totalParcelasPagas = totalParcelasPagas.add(parcela.getValorPago());
 		}
-
-		if (totalParcelasDevidas == BigDecimal.ZERO) {
+		if (totalParcelasDevidas.equals(totalParcelasPagas)) {
 			return true;
+		
 		}
+		
 		return false;
 	}
 
