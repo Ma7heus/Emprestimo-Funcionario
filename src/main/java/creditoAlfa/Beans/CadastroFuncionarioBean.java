@@ -45,7 +45,7 @@ public class CadastroFuncionarioBean implements Serializable {
 			if (funcionarioService.funcionarioAlreadyExist(this.funcionario)) {
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
 						"O cpf " + this.funcionario.getCpf() + " já existe no banco!", null));
-				return "cadastro?faces-redirect=true";
+				return null;
 			} else {
 				funcionarioService.cadastrar(this.funcionario);
 				FacesContext.getCurrentInstance().addMessage(null,
