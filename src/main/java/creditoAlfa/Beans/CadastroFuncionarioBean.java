@@ -48,6 +48,7 @@ public class CadastroFuncionarioBean implements Serializable {
 				return null;
 			} else {
 				funcionarioService.cadastrar(this.funcionario);
+				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo funcionario cadastrado!", null));
 				this.funcionario = new Funcionario();
