@@ -38,7 +38,7 @@ button.ui-button {
 
 						<p:outputLabel value="CPF:" for="cpf" />
 						<p:inputMask size="150" id="cpf" mask="999.999.999-99"
-							placeholder="CPF do funcionario"
+							placeholder="CPF do funcionario" disabled="#{cadastroFuncionarioBean.editaCpf}"
 							value="#{cadastroFuncionarioBean.funcionario.cpf}"
 							required="true" requiredMessage="É necessario informar o cpf"
 							validatorMessage="Codigo do produto deve conter 11 caracteres">

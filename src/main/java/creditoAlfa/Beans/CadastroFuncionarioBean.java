@@ -23,6 +23,7 @@ public class CadastroFuncionarioBean implements Serializable {
 	private List<Funcionario> funcionarios;
 	private Long idFuncionario;
 	private Funcionario funcionario = new Funcionario();
+	private Boolean editaCpf;
 
 	@Inject
 	FuncionarioService funcionarioService;
@@ -85,6 +86,19 @@ public class CadastroFuncionarioBean implements Serializable {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public Boolean getEditaCpf() {
+		if (this.funcionario.getIdFuncionario() == null) {
+			this.editaCpf = false;
+		}else {
+			this.editaCpf = true;
+		}
+		return editaCpf;
+	}
+
+	public void setEditaCpf(Boolean editaCpf) {
+		this.editaCpf = editaCpf;
 	}
 
 }
