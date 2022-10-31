@@ -34,8 +34,13 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializab
 	}
 	
 	public List<Parcela> buscarParcelasVencidas(){
-		String query = ""; // terminar função
-		return null;
+		Date dataAtual = new Date();
+		String query = "SELECT parcela FROM Parcela parcela "
+				+ " WHERE dataVencimento <= :dataAtual "; // terminar função
+		TypedQuery<Parcela> typeQuery = entityManager.createQuery(query, Parcela.class);
+		typeQuery.setParameter("dataAtual", dataAtual);
+		System.out.println(dataAtual);
+		return typeQuery.getResultList();
 		
 		
 	

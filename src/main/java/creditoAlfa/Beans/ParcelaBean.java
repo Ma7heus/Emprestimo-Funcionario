@@ -40,33 +40,28 @@ public class ParcelaBean implements Serializable {
 		buscarTodasParcelas();
 	}
 	
-	public void mostraMensagem() {
-		String texto = check ? "Selecionado!" : "Não Selecionado";
-		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(texto));
-		System.out.println("teste testando teste dois teste");
-	}
-
-
 	public void buscarTodasParcelas() {
 		System.out.println("Buscando todas parcelas");
 		this.parcelas = parcelaService.buscarTodos();
 	}
 
 	public void checkBoxBuscarParcelasVencidas() {
-		System.out.println("Buscando parcelas vencidas");
-		List<Parcela> listaParcelas = this.parcelas;
-		List<Parcela> listaParcelasVencidas = new ArrayList<>();
-		Date dataAtual = new Date();
-		for (Parcela parcela : listaParcelas) {
-			if (!comparaDatas.verificaInicialMaiorQueFinal(dataAtual, parcela.getDataVencimento())) {
-				listaParcelasVencidas.add(parcela);
-			}
+		System.out.println(this.check);
+		String texto = check ? "Buscando parcelas vencidas!" : "Buscando todas parcelas!";
+		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(texto));
+		
+		if (this.check) {
+			this.parcelas = parcelaService.buscarParcelasVencidas();
+		}else {
+			this.parcelas = parcelaService.buscarTodos();
 		}
-		this.parcelas = listaParcelasVencidas;
 	}
 
 	public void buscaParcelasPorperiodo() {
 		if (verificaDatas()){
+			if (this.check) {
+				this.check = false;
+			}
 			System.out.println("Buscando parcelas por periodo");
 			this.parcelas= parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
 		}
@@ -159,13 +154,7 @@ public class ParcelaBean implements Serializable {
 		this.dataFinal = dataFinal;
 	}
 
-	public int getDadosCheckbox() {
-		return dadosCheckbox;
-	}
-
-	public void setDadosCheckbox(int dadosCheckbox) {
-		this.dadosCheckbox = dadosCheckbox;
-	}
+	
 
 	public Boolean getCheck() {
 		return check;

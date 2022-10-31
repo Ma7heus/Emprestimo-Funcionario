@@ -39,13 +39,14 @@ button.ui-button {
 					<br />
 				</h:panelGrid>
 
-				<h:panelGrid columns="4">				
-					
+				<h:panelGrid columns="4">
+
 					<p:selectBooleanCheckbox value="#{parcelaBean.check}"
 						itemLabel="Mostrar todas parcelas vencidas">
-						<p:ajax update="msg" listener="#{parcelaBean.mostraMensagem}" />
+						<p:ajax update="@form:tabelaEmprestimos :formTabelaParcelas"
+							process="@form" listener="#{parcelaBean.checkBoxBuscarParcelasVencidas}" />
 					</p:selectBooleanCheckbox>
-					
+
 				</h:panelGrid>
 
 				<br />
