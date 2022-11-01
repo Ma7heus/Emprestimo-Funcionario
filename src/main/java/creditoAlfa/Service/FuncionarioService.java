@@ -2,10 +2,10 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import creditoAlfa.DAO.FuncionarioDAO;
 import creditoAlfa.model.Funcionario;
@@ -14,13 +14,13 @@ import creditoAlfa.model.Funcionario;
 public class FuncionarioService extends GenericService<Funcionario, Long> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Inject
 	FuncionarioDAO funcionarioDAO;
 
 	@Override
 	public void cadastrar(Funcionario entidade) {
-			funcionarioDAO.cadastrar(entidade);
+		funcionarioDAO.cadastrar(entidade);
 	}
 
 	@Override
@@ -42,13 +42,14 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 	public Funcionario buscaById(Long idEntidade) {
 		return funcionarioDAO.buscaById(idEntidade);
 	}
-	
+
 	public boolean funcionarioAlreadyExist(Funcionario entidade) {
-		Funcionario funcionario =  funcionarioDAO.buscaByCPF(entidade.getCpf());
-		if (Objects.isNull(funcionario)) {
+		try {
+			funcionarioDAO.buscaByCPF(entidade.getCpf());
+			return true;
+		} catch (NoResultException ex) {
 			return false;
 		}
-		return true;	
 	}
 
 	public Boolean validaNomeFuncionario(String nomeFuncionario) {
