@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class ComparaDatas implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public boolean verificaInicialMenorQueFinal(Date dataInicial, Date dataFinal) {
 		if (dataInicial.compareTo(dataFinal) <=0) {
 			return true;

@@ -11,6 +11,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import creditoAlfa.Beans.Util.RedirecionaPagina;
 import creditoAlfa.Service.FuncionarioService;
 import creditoAlfa.model.Funcionario;
 
@@ -19,9 +20,14 @@ import creditoAlfa.model.Funcionario;
 public class CadastroFuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private Long idFuncionario;
+	
 	private Funcionario funcionario = new Funcionario();
-	private Boolean editaCpf;
+
+	private Long idFuncionario;
+	
+	private Boolean editaCpf = true;
+	
+	private RedirecionaPagina redirecionaPagina = new RedirecionaPagina();
 
 	@Inject
 	FuncionarioService funcionarioService;
@@ -50,21 +56,26 @@ public class CadastroFuncionarioBean implements Serializable {
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Novo funcionario cadastrado!", null));
 				this.funcionario = new Funcionario();
-				return "funcionarios?faces-redirect=true";
+				return redirecionaPagina.redirect("funcionarios");
 			}
 		} else {
-			System.out.println("Atualizando Funcionario " + this.funcionario.getNome());
-			funcionarioService.atualizar(this.funcionario);
-			this.funcionario = new Funcionario();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Funcionario atualizado com sucesso!", null));
-			return "funcionarios?faces-redirect=true";
+			atualizaFuncionario();
+			return redirecionaPagina.redirect("funcionarios");
 		}
+	}
+	
+	private void atualizaFuncionario() {
+		System.out.println("Atualizando Funcionario " + this.funcionario.getNome());
+		funcionarioService.atualizar(this.funcionario);
+		this.funcionario = new Funcionario();
+		FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, "Funcionario atualizado com sucesso!", null));
 	}
 
 	public String tabelaFuncionarios() {
 		System.out.println("Chamando tabela de usuarios");
-		return "funcionarios?faces-redirect=true";
+		return redirecionaPagina.redirect("funcionarios");
 	}
 
 	public List<Funcionario> getFuncionarios() {
@@ -84,11 +95,8 @@ public class CadastroFuncionarioBean implements Serializable {
 	}
 
 	public Boolean getEditaCpf() {
-		if (this.funcionario.getIdFuncionario() == null) {
-			this.editaCpf = false;
-		}else {
-			this.editaCpf = true;
-		}
+		if (this.funcionario.getIdFuncionario() == null)
+			return this.editaCpf = false;
 		return editaCpf;
 	}
 
@@ -96,4 +104,11 @@ public class CadastroFuncionarioBean implements Serializable {
 		this.editaCpf = editaCpf;
 	}
 
+	public RedirecionaPagina getRedirecionaPagina() {
+		return redirecionaPagina;
+	}
+
+	public void setRedirecionaPagina(RedirecionaPagina redirecionaPagina) {
+		this.redirecionaPagina = redirecionaPagina;
+	}
 }

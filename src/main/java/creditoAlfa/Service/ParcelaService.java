@@ -2,14 +2,11 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
 import creditoAlfa.Beans.Util.CalculaMeses;
 import creditoAlfa.Beans.Util.ComparaDatas;
 import creditoAlfa.DAO.ParcelaDAO;
@@ -57,13 +54,8 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 		BigDecimal quantidadeParcelas = BigDecimal.valueOf(emprestimo.getTotalParcelas()); //converte Long para BigDecimal
 		BigDecimal totalJuros = emprestimo.getValorEmprestimo().multiply(taxaJuros);
 		BigDecimal valorPorParcela = (totalJuros.add(emprestimo.getValorEmprestimo())).divide(quantidadeParcelas);
-		
-		// ajustar valor salvo
-		System.out.println(" Antes: " + valorPorParcela.toString());		
-		System.out.println(" Depois: " + valorPorParcela.toString());
-		
 		Date datavencimento = emprestimo.getDataPrimeiraParcela();
-		List<Parcela> parcelasGeradas = new ArrayList<>(); // lista de parcelas que vai retornar no front
+		List<Parcela> parcelasGeradas = new ArrayList<>();
 		
 		for (Long i = 1L; i<=emprestimo.getTotalParcelas() ; i++) {
 			Parcela parcela =  new Parcela();		
@@ -73,7 +65,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorParcela(valorPorParcela);
 				parcela.setValorPago(BigDecimal.ZERO);
-				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
+				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}else {
@@ -83,7 +75,7 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 				parcela.setNumParcela(i);
 				parcela.setValorParcela(valorPorParcela);
 				parcela.setValorPago(BigDecimal.ZERO);
-				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());/// SETAR ID DO FUCNIONARIO
+				parcela.setIdFuncionario(emprestimo.getFuncionario().getIdFuncionario());
 				parcelasGeradas.add(parcela);
 				parcelaDAO.cadastrar(parcela);	
 			}
@@ -103,7 +95,6 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 			List<Parcela> listaParcelas = parcelaDAO.buscarParcelasPorPeriodo(dataInicial, dataFinal);
 			return listaParcelas;
 		}		
-		
 		return null;
 	}
 
@@ -114,14 +105,4 @@ public class ParcelaService extends GenericService<Parcela, Long> implements Ser
 	public List<Parcela> buscarParcelasVencidas() {
 		return parcelaDAO.buscarParcelasVencidas();
 	}
-
-
-		
-	
-	
-	
-	
-		
-	
-
 }

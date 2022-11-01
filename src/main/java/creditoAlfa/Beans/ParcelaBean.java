@@ -20,6 +20,7 @@ import creditoAlfa.model.Parcela;
 @Named
 @ViewScoped
 public class ParcelaBean implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Inject
@@ -29,10 +30,15 @@ public class ParcelaBean implements Serializable {
 	ComparaDatas comparaDatas;
 
 	private Long IdParcela;
+	
 	private List<Parcela> parcelas = new ArrayList<>();
+	
 	private Parcela parcela = new Parcela();
+	
 	private Date dataInicial;
+	
 	private Date dataFinal;
+	
 	private Boolean check;
 
 	@PostConstruct
@@ -49,7 +55,6 @@ public class ParcelaBean implements Serializable {
 		System.out.println(this.check);
 		String texto = check ? "Buscando parcelas vencidas!" : "Buscando todas parcelas!";
 		FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(texto));
-		
 		if (this.check) {
 			this.parcelas = parcelaService.buscarParcelasVencidas();
 		}else {
@@ -65,7 +70,6 @@ public class ParcelaBean implements Serializable {
 			System.out.println("Buscando parcelas por periodo");
 			this.parcelas= parcelaService.buscarParcelasPorPeriodo(this.dataInicial, this.dataFinal);
 		}
-		
 	}
 
 	private Boolean verificaDatas() {
@@ -91,16 +95,12 @@ public class ParcelaBean implements Serializable {
 			} else {
 				parcelaService.baixarParcela(idParcela);
 				System.out.println("PARCELA BAIXADA");
-
 				this.parcelas = parcelaService.buscarTodos();
 				FacesContext.getCurrentInstance().addMessage(null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO, "Parcela baixada!", null));
 			}
 		}
-
 	}
-
-	// --------------------------------------
 
 	public ParcelaService getParcelaService() {
 		return parcelaService;
@@ -154,12 +154,9 @@ public class ParcelaBean implements Serializable {
 		this.dataFinal = dataFinal;
 	}
 
-	
-
 	public Boolean getCheck() {
 		return check;
 	}
-
 
 	public void setCheck(Boolean check) {
 		this.check = check;

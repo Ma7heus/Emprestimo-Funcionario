@@ -8,15 +8,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition template="_template.xhtml">
-
 	<ui:define name="titulo">
 		<style>
 button.ui-button {
 	margin-right: .5rem;
 }
 </style>
-
-
 		<h:form id="formTabelaParcelas">
 			<p:growl id="msg" />
 			<p:fieldset>
@@ -26,6 +23,7 @@ button.ui-button {
 					<p:datePicker id="dataInicial" mask="99/99/9999"
 						value="#{parcelaBean.dataInicial}" showIcon="true">
 					</p:datePicker>
+
 					<p:outputLabel value="Até:" for="" />
 					<p:datePicker id="dataFinal" mask="99/99/9999"
 						value="#{parcelaBean.dataFinal}" showIcon="true">
@@ -38,17 +36,14 @@ button.ui-button {
 					</p:commandButton>
 					<br />
 				</h:panelGrid>
-
 				<h:panelGrid columns="4">
-
 					<p:selectBooleanCheckbox value="#{parcelaBean.check}"
 						itemLabel="Mostrar todas parcelas vencidas">
 						<p:ajax update="@form:tabelaEmprestimos :formTabelaParcelas"
-							process="@form" listener="#{parcelaBean.checkBoxBuscarParcelasVencidas}" />
+							process="@form"
+							listener="#{parcelaBean.checkBoxBuscarParcelasVencidas}" />
 					</p:selectBooleanCheckbox>
-
 				</h:panelGrid>
-
 				<br />
 
 				<p:dataTable id="tabelaEmprestimos" value="#{parcelaBean.parcelas}"
@@ -59,6 +54,7 @@ button.ui-button {
 						<f:facet name="header">ID</f:facet>
 						<p:outputLabel value="#{parcela.idParcela}" />
 					</p:column>
+
 					<p:column sortBy="#{parcela.emprestimo.funcionario.nome}"
 						filterBy="#{parcela.emprestimo.funcionario.nome}">
 						<f:facet name="header">Funcionario</f:facet>
@@ -77,23 +73,24 @@ button.ui-button {
 								timeZone="America/Sao_Paulo" />
 						</p:outputLabel>
 					</p:column>
+
 					<p:column sortBy="#{parcela.valorParcela}">
 						<f:facet name="header">Valor Parcela</f:facet>
 						<h:outputText value="#{parcela.valorParcela}">
 						</h:outputText>
 					</p:column>
+
 					<p:column sortBy="#{parcela.valorPago}">
 						<f:facet name="header">Valor Pago</f:facet>
 						<p:outputLabel value="#{parcela.valorPago}" />
 					</p:column>
+
 					<p:column>
 						<f:facet name="header">Opções</f:facet>
-
 						<p:commandButton id="baixarparcela" value="baixar"
 							class="ui-button-warning rounded-button" icon="pi pi-arrow-down"
 							action="#{parcelaBean.baixarParcela(parcela.idParcela)}"
 							process="@form" update="@form:formTabelaParcelas">
-
 							<p:confirm header="Confirmação" message="Baixar parcela?"
 								icon="pi pi-exclamation-triangle" />
 						</p:commandButton>
@@ -101,22 +98,15 @@ button.ui-button {
 						<p:confirmDialog hideEffect="fade" global="true" showEffect="fade"
 							width="300" message="Baixar Parcela?" header="Confirm"
 							severity="warn">
-
 							<p:commandButton value="Yes" type="button" icon="pi pi-check"
 								styleClass="ui-confirmdialog-yes" />
-
 							<p:commandButton value="No" type="button" icon="pi pi-times"
 								styleClass="ui-confirmdialog-no ui-button-flat" />
 						</p:confirmDialog>
-
 					</p:column>
-
 				</p:dataTable>
 			</p:fieldset>
 		</h:form>
 	</ui:define>
 </ui:composition>
-
-
-
 </html>

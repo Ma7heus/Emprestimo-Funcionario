@@ -8,7 +8,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition template="_template.xhtml">
-
 	<ui:define name="titulo">
 		<style>
 button.ui-button {
@@ -18,21 +17,23 @@ button.ui-button {
 
 		<div id="cabecalho">
 			<h:form id="formCadastroEmprestimo">
-				<p:growl id="msg"/>
+				<p:growl id="msg" />
 				<p:fieldset legend="Cadastro de Emprestimo">
 					<h:panelGrid columns="2">
 
 						<p:outputLabel value="Data de Operação:" for="dataOperacao" />
-						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999" showIcon="true"
-							requiredMessage="Data da Operação é obrigatoria" size="20"
-							value="#{emprestimoBean.emprestimo.dataOperacao}">
+						<p:datePicker id="dataOperacao" required="true" mask="99/99/9999"
+							showIcon="true" requiredMessage="Data da Operação é obrigatoria"
+							size="20" value="#{emprestimoBean.emprestimo.dataOperacao}">
 							<p:messages for="dataOperacao" />
 						</p:datePicker>
 
 						<p:outputLabel value="Funcionario:" for="funcionario" />
-						<p:selectOneMenu id="funcionario" required="true" requiredMessage=" * Informe o funcionario!"
-							value="#{emprestimoBean.idFuncionario}" >
-							<f:selectItem itemLabel="Selecione um funcionario" itemValue="" noSelectionOption="true"/>
+						<p:selectOneMenu id="funcionario" required="true"
+							requiredMessage=" * Informe o funcionario!"
+							value="#{emprestimoBean.idFuncionario}">
+							<f:selectItem itemLabel="Selecione um funcionario" itemValue=""
+								noSelectionOption="true" />
 							<f:selectItems value="#{emprestimoBean.funcionarios}"
 								var="funcionario" itemLabel="#{funcionario.nome}"
 								itemValue="#{funcionario.idFuncionario}" />
@@ -42,21 +43,19 @@ button.ui-button {
 						<p:inputNumber size="25" id="valorEmprestimo"
 							placeholder="Valor Emprestimo"
 							value="#{emprestimoBean.emprestimo.valorEmprestimo}"
-							
 							required="true" symbol=" R$" symbolPosition="s"
 							decimalSeparator="," thousandSeparator="." mask="999,99"
-							
-							
-							
 							requiredMessage=" * Informe o valor do Emprestimo!"
 							validatorMessage="Nao pode ser superior a 16 caracteres">
 							<f:validateLength maximum="8" />
 						</p:inputNumber>
 
 						<p:outputLabel value="Parcelas:" for="parcelas" />
-						<p:selectOneMenu id="parcelas"  required="true" requiredMessage=" * Informe a quantidade de parcelas!"
+						<p:selectOneMenu id="parcelas" required="true"
+							requiredMessage=" * Informe a quantidade de parcelas!"
 							value="#{emprestimoBean.idParcelaValue}">
-							<f:selectItem itemLabel="Selecione uma opção" itemValue="" noSelectionOption="true"/>
+							<f:selectItem itemLabel="Selecione uma opção" itemValue=""
+								noSelectionOption="true" />
 							<f:selectItems var="parcela"
 								value="#{emprestimoBean.parcelasValues}"
 								itemLabel="#{parcela.quantidadeParcela}x"
@@ -73,7 +72,7 @@ button.ui-button {
 						</p:datePicker>
 
 					</h:panelGrid>
-					<br/>
+					<br />
 
 					<p:commandButton value="Gerar Parcelas"
 						styleClass="ui-button-success" icon="pi pi-refresh"
@@ -86,43 +85,31 @@ button.ui-button {
 						update="@form: formCadastroEmprestimo: ">
 					</p:commandButton>
 
-
 				</p:fieldset>
 			</h:form>
 
 			<h:form id="formListaParcelas">
-				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}" showGridlines="true"  style="width:50%"
-					var="parcela">
-					<p:column  >
+				<p:dataTable id="tabelaParcelas" value="#{emprestimoBean.parcelas}"
+					showGridlines="true" style="width:50%" var="parcela">
+					<p:column>
 						<f:facet name="header">Parcela</f:facet>
-						<p:outputLabel value="#{parcela.numParcela}"/>
+						<p:outputLabel value="#{parcela.numParcela}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">Vencimento</f:facet>
-						<p:outputLabel value="#{parcela.dataVencimento}" >
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-							</p:outputLabel>
+						<p:outputLabel value="#{parcela.dataVencimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"
+								timeZone="America/Sao_Paulo" />
+						</p:outputLabel>
 					</p:column>
 					<p:column>
 						<f:facet name="header">Valor Parcela</f:facet>
-						<p:outputLabel  value="R$ #{parcela.valorParcela}"
-						 decimalSeparator="," thousandSeparator="."/>
-						
+						<p:outputLabel value="R$ #{parcela.valorParcela}"
+							decimalSeparator="," thousandSeparator="." />
 					</p:column>
-					
-					
-
 				</p:dataTable>
-
-
 			</h:form>
-
-
 		</div>
 	</ui:define>
 </ui:composition>
-
-
-
 </html>

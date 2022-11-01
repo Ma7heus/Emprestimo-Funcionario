@@ -1,34 +1,30 @@
 package creditoAlfa.Beans;
 
 import java.io.Serializable;
+import creditoAlfa.Beans.Util.RedirecionaPagina;
 import java.util.List;
-import java.util.Objects;
-
-import javax.annotation.PostConstruct;
 import javax.ejb.EJBTransactionRolledbackException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.transaction.RollbackException;
-import javax.validation.ConstraintViolationException;
-
-import org.postgresql.util.PSQLException;
-
 import creditoAlfa.Service.FuncionarioService;
 import creditoAlfa.model.Funcionario;
 
 @Named
 @ViewScoped
-public class formFuncionariosBean implements Serializable {
+public class FormFuncionariosBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private List<Funcionario> funcionarios;
+	
 	private Long idFuncionario;
+	
 	private Funcionario funcionario = new Funcionario();
+	
+	private RedirecionaPagina redirecionaPagina = new RedirecionaPagina();
 
 	@Inject
 	FuncionarioService funcionarioService;
@@ -40,7 +36,6 @@ public class formFuncionariosBean implements Serializable {
 			this.funcionarios = funcionarioService.buscarTodos();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO
 					,"Funcionario excluido com sucesso!",null));
-
 		} catch (EJBTransactionRolledbackException ex) {
 			System.out.println("Não é possivel excluir esse funcionario!, o mesmo é usado por outras tabelas!");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN
@@ -51,20 +46,19 @@ public class formFuncionariosBean implements Serializable {
 	public String atualizar(Funcionario funcionarioAtualizar) {
 		System.out.println("Atualizando Funcionario");
 		FacesContext.getCurrentInstance().getExternalContext().getFlash().put("funcionario", funcionarioAtualizar);
-
-		return "cadastro?faces-redirect=true";
+		return redirecionaPagina.redirect("cadastro");
 	}
 
 	public String formCadastrar() {
 		System.out.println("Chamando form de cadatrar usuario");
-		return "cadastro?faces-redirect=true";
+		return redirecionaPagina.redirect("cadastro");
 	}
 
 	public String tabelaFuncionarios() {
 		System.out.println("Chamando tabela de usuarios");
-		return "funcionarios?faces-redirect=true";
+		return redirecionaPagina.redirect("funcionarios");
 	}
-
+	
 	public List<Funcionario> getFuncionarios() {
 		if (this.funcionarios == null) {
 			this.funcionarios = funcionarioService.buscarTodos();
@@ -88,4 +82,11 @@ public class formFuncionariosBean implements Serializable {
 		this.funcionarios = funcionarios;
 	}
 
+	public RedirecionaPagina getRedirecionaPagina() {
+		return redirecionaPagina;
+	}
+
+	public void setRedirecionaPagina(RedirecionaPagina redirecionaPagina) {
+		this.redirecionaPagina = redirecionaPagina;
+	}
 }

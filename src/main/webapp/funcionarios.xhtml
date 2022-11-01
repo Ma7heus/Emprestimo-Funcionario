@@ -8,15 +8,14 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:composition template="_template.xhtml">
-
 	<ui:define name="titulo">
-<style>
+		<style>
 button.ui-button {
 	margin-right: .5rem;
 }
 </style>
 		<h:form id="formTabelaFuncionarios">
-		<p:growl id="msg"/>
+			<p:growl id="msg" />
 			<p:fieldset>
 				<h1>Cadastro de Funcionários</h1>
 				<p:commandButton id="novo" value="Novo" icon="pi pi-plus"
@@ -30,6 +29,7 @@ button.ui-button {
 						<f:facet name="header">ID</f:facet>
 						<p:outputLabel value="#{funcionario.idFuncionario}" />
 					</p:column>
+
 					<p:column sortBy="#{funcionario.nome}">
 						<f:facet name="header">Nome</f:facet>
 						<p:outputLabel value="#{funcionario.nome}" />
@@ -54,22 +54,21 @@ button.ui-button {
 					<p:column sortBy="#{funcionario.dataAdmissao}">
 						<f:facet name="header">Data Admissão</f:facet>
 						<p:outputLabel value="#{funcionario.dataAdmissao}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
+							<f:convertDateTime pattern="dd/MM/yyyy"
 								timeZone="America/Sao_Paulo" />
 						</p:outputLabel>
 					</p:column>
 
 					<p:column>
 						<f:facet name="header">Opções</f:facet>
-						<p:commandButton id="atualizaProduto" icon="pi pi-pencil" 
+						<p:commandButton id="atualizaProduto" icon="pi pi-pencil"
 							action="#{formFuncionariosBean.atualizar(funcionario)}"
 							process="@this" />
-					
+
 						<p:commandButton id="removerFuncionario"
 							class="ui-button-warning rounded-button" icon="pi pi-trash"
 							action="#{formFuncionariosBean.deletar(funcionario)}"
 							process="@this" update="@form :formTabelaFuncionarios">
-
 							<p:confirm header="Confirmação" message="Excluir Funcionario?"
 								icon="pi pi-exclamation-triangle" />
 						</p:commandButton>
@@ -79,20 +78,15 @@ button.ui-button {
 							severity="warn">
 
 							<p:commandButton value="Yes" type="button" icon="pi pi-check"
-								styleClass="ui-confirmdialog-yes"/>
+								styleClass="ui-confirmdialog-yes" />
 
 							<p:commandButton value="No" type="button" icon="pi pi-times"
 								styleClass="ui-confirmdialog-no ui-button-flat" />
 						</p:confirmDialog>
-
 					</p:column>
-
 				</p:dataTable>
 			</p:fieldset>
 		</h:form>
 	</ui:define>
 </ui:composition>
-
-
-
 </html>
