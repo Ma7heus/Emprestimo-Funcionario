@@ -19,8 +19,6 @@ import creditoAlfa.model.Funcionario;
 public class CadastroFuncionarioBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private List<Funcionario> funcionarios;
 	private Long idFuncionario;
 	private Funcionario funcionario = new Funcionario();
 	private Boolean editaCpf;
@@ -83,10 +81,6 @@ public class CadastroFuncionarioBean implements Serializable {
 
 	public void setIdFuncionario(Long idFuncionario) {
 		this.idFuncionario = idFuncionario;
-	}
-
-	public void setFuncionarios(List<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
 	}
 
 	public Boolean getEditaCpf() {

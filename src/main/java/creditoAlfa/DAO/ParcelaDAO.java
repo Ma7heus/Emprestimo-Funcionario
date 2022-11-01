@@ -1,16 +1,14 @@
 package creditoAlfa.DAO;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import creditoAlfa.model.Parcela;
 
 @Stateless
-public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializable  {
+public class ParcelaDAO extends GenericDAO<Parcela, Long> {
 
 	public ParcelaDAO() {
 		super(Parcela.class);
@@ -41,12 +39,5 @@ public class ParcelaDAO extends GenericDAO<Parcela, Long>  implements Serializab
 		typeQuery.setParameter("dataAtual", dataAtual);
 		System.out.println(dataAtual);
 		return typeQuery.getResultList();
-		
-		
-	
-		
 	}
-	
-	
-	
 }

@@ -31,16 +31,17 @@ public class Parcela {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idEmprestimo", foreignKey = @ForeignKey(name="fk_emprestimo"))
 	private Emprestimo emprestimo;
-	private Long numParcela;
-	private Long idFuncionario;
-	private BigDecimal valorParcela;
-	private BigDecimal valorPago;
 	
+	private Long numParcela;
+	
+	private Long idFuncionario;
+	
+	private BigDecimal valorParcela;
+	
+	private BigDecimal valorPago;
 	
 	public Parcela() {
 	}
-	
-	
 	
 	public Parcela(Date dataVencimento, Emprestimo emprestimo, Long numParcela, BigDecimal valorParcela,
 			BigDecimal valorPago) {
@@ -51,7 +52,6 @@ public class Parcela {
 		this.valorPago = valorPago;
 	}
 
-	
 	public Long getIdParcela() {
 		return idParcela;
 	}
@@ -76,36 +76,22 @@ public class Parcela {
 	public void setValorPago(BigDecimal valorPago) {
 		this.valorPago = valorPago;
 	}
-
 	public Emprestimo getEmprestimo() {
 		return emprestimo;
 	}
-
 	public void setEmprestimo(Emprestimo emprestimo) {
 		this.emprestimo = emprestimo;
 	}
-
 	public Long getNumParcela() {
 		return numParcela;
 	}
-
 	public void setNumParcela(Long numParcela) {
 		this.numParcela = numParcela;
 	}
-
-
-
 	public Long getIdFuncionario() {
 		return idFuncionario;
 	}
-
-
-
 	public void setIdFuncionario(Long idFuncionario) {
 		this.idFuncionario = idFuncionario;
 	}
-
-
-	
-	
 }

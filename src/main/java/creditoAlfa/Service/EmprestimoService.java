@@ -3,13 +3,10 @@ package creditoAlfa.Service;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-
 import creditoAlfa.Beans.Util.CalculaMeses;
 import creditoAlfa.DAO.EmprestimoDAO;
 import creditoAlfa.DAO.ParcelaDAO;
@@ -53,7 +50,6 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 			ParcelasValues quantidadeParcelas = parcelaValuesService.buscaById(idParcelaValue);
 			emprestimo.setFuncionario(funcionario);
 			emprestimo.setTotalParcelas(quantidadeParcelas.getQuantidadeParcela());
-
 			parcelasGeradas = parcelaService.CalculaeCadatraParcelas(emprestimo); // populando lista
 			cadastrar(emprestimo); // metodo dessa classe
 		} else {
@@ -82,22 +78,18 @@ public class EmprestimoService extends GenericService<Emprestimo, Long> implemen
 		}
 		if (totalParcelasDevidas.equals(totalParcelasPagas)) {
 			return true;
-		
 		}
-		
 		return false;
 	}
 
 	@Override
 	public void deletar(Emprestimo entidade) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void atualizar(Emprestimo entidade) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

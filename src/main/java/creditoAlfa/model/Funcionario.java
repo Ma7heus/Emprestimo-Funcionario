@@ -20,12 +20,18 @@ public class Funcionario {
 	@SequenceGenerator(name = "SEQUENSE_FUNCIONARIO", sequenceName = "id_funcionario", allocationSize = 1)
 	@GeneratedValue(generator = "SEQUENSE_FUNCIONARIO", strategy = GenerationType.SEQUENCE)
 	private Long idFuncionario;
+	
 	private String nome;
+	
 	@Column(unique = true)
 	private String cpf;
-	private String Setor;
+	
+	private String setor;
+	
 	private String cargo;
+	
 	private String observacao;
+	
 	@Temporal(TemporalType.DATE)
 	private Date dataAdmissao = new Date();
 
@@ -35,7 +41,7 @@ public class Funcionario {
 	public Funcionario(String nome, String cpf, String setor, String cargo, Date dataAdmissao) {
 		this.nome = nome;
 		this.cpf = cpf;
-		Setor = setor;
+		this.setor = setor;
 		this.cargo = cargo;
 		this.dataAdmissao = dataAdmissao;
 	}
@@ -43,7 +49,7 @@ public class Funcionario {
 	public Funcionario(String nome, String cpf, String setor, String cargo, Date dataAdmissao, String observacao) {
 		this.nome = nome;
 		this.cpf = cpf;
-		Setor = setor;
+		this.setor = setor;
 		this.cargo = cargo;
 		this.observacao = observacao;
 		this.dataAdmissao = dataAdmissao;
@@ -74,11 +80,11 @@ public class Funcionario {
 	}
 
 	public String getSetor() {
-		return Setor;
+		return this.setor;
 	}
 
 	public void setSetor(String setor) {
-		Setor = setor;
+		this.setor = setor;
 	}
 
 	public String getCargo() {
@@ -104,5 +110,4 @@ public class Funcionario {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-
 }

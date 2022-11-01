@@ -2,10 +2,10 @@ package creditoAlfa.Service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 
 import creditoAlfa.DAO.FuncionarioDAO;
 import creditoAlfa.model.Funcionario;
@@ -43,18 +43,12 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 		return funcionarioDAO.buscaById(idEntidade);
 	}
 	
-	public boolean funcionarioAlreadyExist(Funcionario funcionario) { // verifica se funcionario existe no banco
-		List<Funcionario> listaFuncionarios=  funcionarioDAO.buscarTodos();
-		for (Funcionario funcionarioList : listaFuncionarios) {
-			if (funcionarioList.getCpf().equals(funcionario.getCpf())) {
-				System.out.println("funcionario a ser cadastrado " + funcionario.getCpf());
-				System.out.println("Funcionario ja cadastrado " + funcionarioList.getCpf());
-				System.out.println("O funcionario com Cpf " + funcionario.getCpf() 
-				+ " já existe!");
-				return true;
-			}
-		}		
-		return false;		
+	public boolean funcionarioAlreadyExist(Funcionario entidade) {
+		Funcionario funcionario =  funcionarioDAO.buscaByCPF(entidade.getCpf());
+		if (Objects.isNull(funcionario)) {
+			return false;
+		}
+		return true;	
 	}
 
 	public Boolean validaNomeFuncionario(String nomeFuncionario) {
@@ -62,7 +56,5 @@ public class FuncionarioService extends GenericService<Funcionario, Long> implem
 			return true;
 		}
 		return false;
-	};
-	
-
+	}
 }
